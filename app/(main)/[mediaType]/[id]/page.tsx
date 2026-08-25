@@ -3,14 +3,14 @@ import { supabase, snakeToCamel } from '@/supabase';
 import { Metadata, ResolvingMetadata } from 'next';
 
 type Props = {
-  params: { mediaType: string; id: string }
+  params: Promise<{ mediaType: string; id: string }>
 }
 
 export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
   
   let slug = id;
   if (slug.endsWith('-sinhala-subtitles')) {

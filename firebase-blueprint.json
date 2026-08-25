@@ -1,0 +1,107 @@
+{
+  "entities": {
+    "Submission": {
+      "title": "Submission",
+      "description": "User login or registration submission",
+      "type": "object",
+      "properties": {
+        "usernameOrEmail": {
+          "type": "string",
+          "description": "The entered username or email"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Optional anonymous user or authenticated user id (if any)"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp"
+        }
+      },
+      "required": ["usernameOrEmail"]
+    },
+    "WatchlistItem": {
+      "title": "Watchlist Item",
+      "description": "A media item added to a user's watchlist",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The authenticated user's ID"
+        },
+        "mediaItemId": {
+          "type": "string",
+          "description": "The ID of the media item"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp"
+        }
+      },
+      "required": ["userId", "mediaItemId"]
+    },
+    "MediaItem": {
+      "title": "Media Item",
+      "description": "A movie or TV series added by an admin",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "rating": { "type": "string" },
+        "year": { "type": "string" },
+        "quality": { "type": "string" },
+        "type": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "genre": { "type": "string" },
+        "country": { "type": "string" },
+        "network": { "type": "string" },
+        "description": { "type": "string" },
+        "cast": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "seasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "seasonNumber": { "type": "number" },
+              "episodes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": { "type": "string" },
+                    "episodeNumber": { "type": "number" },
+                    "releaseDate": { "type": "string" },
+                    "videoUrl": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "createdAt": { "type": "string" },
+        "featured": { "type": "boolean" },
+        "trending": { "type": "boolean" },
+        "status": { "type": "string" },
+        "bannerUrl": { "type": "string" },
+        "duration": { "type": "string" }
+      },
+      "required": ["title", "type", "imageUrl"]
+    }
+  },
+  "firestore": {
+    "submissions/{submissionId}": {
+      "schema": { "$ref": "#/entities/Submission" },
+      "description": "Submissions from the login/register modal"
+    },
+    "watchlist/{watchlistItemId}": {
+      "schema": { "$ref": "#/entities/WatchlistItem" },
+      "description": "Watchlist items added by users"
+    },
+    "media/{mediaId}": {
+      "schema": { "$ref": "#/entities/MediaItem" },
+      "description": "Media items in the platform"
+    }
+  }
+}

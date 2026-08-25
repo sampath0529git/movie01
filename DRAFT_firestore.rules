@@ -1,0 +1,69 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitive Helpers
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    function incoming() { return request.resource.data; }
+    function isSignedIn() { return request.auth != null; }
+
+    function isValidSubmission(data) {
+      return data.keys().hasAll(['usernameOrEmail', 'createdAt']) &&
+             data.keys().size() >= 2 && data.keys().size() <= 3 &&
+             data.usernameOrEmail is string && data.usernameOrEmail.size() > 0 && data.usernameOrEmail.size() <= 100 &&
+             data.createdAt == request.time &&
+             ( !('userId' in data) || (data.userId is string && data.userId.size() <= 128) );
+    }
+
+    function isValidWatchlistItem(data) {
+      return data.keys().hasAll(['userId', 'mediaItemId', 'createdAt']) &&
+             data.keys().size() == 3 &&
+             data.userId is string && data.userId.size() > 0 && data.userId.size() <= 128 &&
+             data.userId == request.auth.uid &&
+             data.mediaItemId is string && data.mediaItemId.size() > 0 && data.mediaItemId.size() <= 128 &&
+             data.createdAt == request.time;
+    }
+
+    function isValidMediaItem(data) {
+      // Allow flexible keys since we have many optional fields, but enforce core ones
+      return data.keys().hasAll(['title', 'type', 'imageUrl', 'createdAt']) &&
+             data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+             data.type is string && (data.type == 'MOVIE' || data.type == 'TV') &&
+             data.imageUrl is string && data.imageUrl.size() <= 1000 &&
+             data.createdAt == request.time &&
+             // Optional fields validation
+             (!('rating' in data) || (data.rating is string && data.rating.size() <= 10)) &&
+             (!('year' in data) || (data.year is string && data.year.size() <= 10)) &&
+             (!('quality' in data) || (data.quality is string && data.quality.size() <= 10)) &&
+             (!('genre' in data) || (data.genre is string && data.genre.size() <= 50)) &&
+             (!('country' in data) || (data.country is string && data.country.size() <= 50)) &&
+             (!('network' in data) || (data.network is string && data.network.size() <= 50));
+    }
+
+    match /submissions/{submissionId} {
+      allow read: if false; // Only Admin can read
+      allow create: if isValidId(submissionId) && isValidSubmission(incoming());
+      allow update, delete: if false;
+    }
+
+    match /watchlist/{itemId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && isValidId(itemId) && isValidWatchlistItem(incoming());
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow update: if false;
+    }
+
+    match /media/{mediaId} {
+      allow read: if true;
+      allow create: if isSignedIn() && isValidId(mediaId) && isValidMediaItem(incoming());
+      allow update: if false;
+      allow delete: if isSignedIn();
+    }
+  }
+}

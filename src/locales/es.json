@@ -1,0 +1,44 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "discover": "Descubrir",
+    "movies": "Películas",
+    "tv_series": "Series de TV",
+    "channels": "Canales",
+    "admin": "Admin",
+    "genres": "Géneros",
+    "search": "Buscar películas, series...",
+    "trending_searches": "Búsquedas Populares",
+    "recent_searches": "Búsquedas Recientes",
+    "clear_all": "Borrar todo",
+    "sign_in": "Iniciar sesión",
+    "sign_out": "Cerrar sesión",
+    "language": "Idioma"
+  },
+  "home": {
+    "hero_title": "සිංහල උපසිරැසි සමඟ Movies & TV Shows නරඹන්න",
+    "hero_subtitle": "Daily Updated English, Korean, Tamil & TV Series with Sinhala Subtitles.",
+    "search_button": "Buscar",
+    "browse_all": "Ver Todo el Contenido",
+    "description_1": "Mira películas de primer nivel gratis con subtítulos en inglés en MovieVibe. Es el destino definitivo para el streaming online gratuito, ofreciendo una amplia colección sin registros. Con una base de datos extensa, ¡es el mejor sitio web que no te puedes perder!",
+    "description_2": "Ten en cuenta que nuestro sitio no aloja ningún archivo; proporcionamos enlaces a medios alojados en plataformas de terceros."
+  },
+  "discover": {
+    "title": "Descubrir Películas",
+    "latest": "Últimas Películas",
+    "all": "TODOS",
+    "genre": "GÉNERO",
+    "year": "POR AÑO",
+    "rating": "PUNTUACIÓN IMDB",
+    "country": "PAÍS",
+    "network": "RED",
+    "load_more": "Cargar Más",
+    "no_movies": "No hay películas que coincidan con los filtros."
+  },
+  "footer": {
+    "channels": "CANALES",
+    "about": "ACERCA DE",
+    "contact": "Contacto",
+    "faq": "Preguntas Frecuentes"
+  }
+}

@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-400: #1ee417;
+  --color-brand-500: #08cb00;
+  --color-brand-600: #06b000;
+  --color-brand-700: #058f00;
+  --color-brand-800: #253900;
+  --color-brand-900: #1a2700;
+}
+
+@layer base {
+  html, body {
+    overflow-x: hidden;
+    background-color: #000000;
+    color: #eeeeee;
+  }
+  
+  option {
+    background-color: #0d1400;
+    color: white;
+  }
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+body::-webkit-scrollbar-track {
+  background: #000000;
+}
+body::-webkit-scrollbar-thumb {
+  background: #1a2700;
+  border-radius: 5px;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background: #08cb00;
+}
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-select: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #000000;
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #385600;
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #253900;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+.pause-marquee:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+.markdown-body, .article-html-content {
+  color: #d1d5db;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4,
+.article-html-content h1, .article-html-content h2, .article-html-content h3, .article-html-content h4 {
+  font-weight: 700;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  color: #fff;
+  letter-spacing: -0.025em;
+}
+.markdown-body h1, .article-html-content h1 { font-size: 1.875rem; border-bottom: 1px solid #1a2700; padding-bottom: 0.25em; }
+.markdown-body h2, .article-html-content h2 { font-size: 1.5rem; }
+.markdown-body h3, .article-html-content h3 { font-size: 1.25rem; }
+.markdown-body p, .article-html-content p { margin-bottom: 1.25em; }
+.markdown-body ul, .article-html-content ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1.25em; color: #d1d5db; }
+.markdown-body ol, .article-html-content ol { list-style-type: decimal; padding-left: 1.5em; margin-bottom: 1.25em; color: #d1d5db; }
+.markdown-body li, .article-html-content li { margin-bottom: 0.5em; }
+.markdown-body a, .article-html-content a { color: #08cb00; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+.markdown-body a:hover, .article-html-content a:hover { color: #1ee417; text-decoration: underline; }
+.markdown-body strong, .article-html-content strong { font-weight: 600; color: #fff; }
+.markdown-body blockquote, .article-html-content blockquote {
+  border-left: 4px solid #08cb00;
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+  color: #9ca3af;
+  background: rgba(8, 203, 0, 0.05);
+  padding: 1rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Custom Plyr Theme - Sleek and Professional */
+:root {
+  --plyr-color-main: #08cb00;
+  --plyr-video-control-color: rgba(255, 255, 255, 0.85);
+  --plyr-video-control-color-hover: #ffffff;
+  --plyr-video-controls-background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.85));
+  --plyr-video-control-background-hover: rgba(8, 203, 0, 0.6);
+  --plyr-menu-background: rgba(20, 20, 20, 0.95);
+  --plyr-menu-color: rgba(255, 255, 255, 0.9);
+  --plyr-menu-radius: 8px;
+  --plyr-menu-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  --plyr-font-family: inherit;
+  --plyr-tooltip-background: rgba(0, 0, 0, 0.9);
+  --plyr-tooltip-radius: 6px;
+  --plyr-tooltip-color: #fff;
+  --plyr-range-thumb-height: 14px;
+  --plyr-range-track-height: 5px;
+}
+
+.plyr--video .plyr__control.plyr__tab-focus,
+.plyr--video .plyr__control:hover,
+.plyr--video .plyr__control[aria-expanded="true"] {
+  background: var(--plyr-video-control-background-hover) !important;
+}
+
+.plyr__controls {
+  padding-bottom: 24px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+.plyr__progress__container {
+  margin-bottom: 6px;
+}
+
+input[data-plyr="seek"],
+input[data-plyr="volume"] {
+  cursor: pointer;
+}
+
+

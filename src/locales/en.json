@@ -1,0 +1,44 @@
+{
+  "nav": {
+    "home": "Home",
+    "discover": "Discover",
+    "movies": "Movies",
+    "tv_series": "TV Series",
+    "channels": "Channels",
+    "admin": "Admin",
+    "genres": "Genres",
+    "search": "Search for movies, TV shows...",
+    "trending_searches": "Trending Searches",
+    "recent_searches": "Recent Searches",
+    "clear_all": "Clear all",
+    "sign_in": "Sign In",
+    "sign_out": "Sign Out",
+    "language": "Language"
+  },
+  "home": {
+    "hero_title": "සිංහල උපසිරැසි සමඟ Movies & TV Shows නරඹන්න",
+    "hero_subtitle": "Daily Updated English, Korean, Tamil & TV Series with Sinhala Subtitles.",
+    "search_button": "Search",
+    "browse_all": "Browse All Content",
+    "description_1": "Watch free movies and TV shows online with Sinhala subtitles at MovieVibe. Stream the latest Hollywood blockbusters, Tamil action movies, Bollywood hits, Telugu, Malayalam cinema, and trending Korean Dramas (K-Dramas) in HD quality. No registration needed. We are Sri Lanka's ultimate destination for fast, high-quality streaming with daily updates.",
+    "description_2": "Disclaimer: MovieVibe does not host or store any media files on its servers. We only link to publicly available content hosted on non-affiliated third-party platforms."
+  },
+  "discover": {
+    "title": "Discover Movies",
+    "latest": "Latest Movies",
+    "all": "ALL",
+    "genre": "GENRE",
+    "year": "BY YEAR",
+    "rating": "IMDB RATING",
+    "country": "COUNTRY",
+    "network": "NETWORK",
+    "load_more": "Load More",
+    "no_movies": "No movies match the selected filters."
+  },
+  "footer": {
+    "channels": "CHANNELS",
+    "about": "ABOUT",
+    "contact": "Contact",
+    "faq": "FAQ"
+  }
+}

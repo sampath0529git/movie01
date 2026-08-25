@@ -44,12 +44,14 @@ interface NavbarProps {
 
 import { LogoImage } from "./LogoImage";
 
+const EMPTY_MEDIA: MediaItem[] = [];
+
 export default function Navbar({
   currentView,
   setCurrentView,
   onLoginClick,
   onSelectMedia,
-  customMedia = [],
+  customMedia = EMPTY_MEDIA,
   isAdmin = false,
   user = null,
 }: NavbarProps) {

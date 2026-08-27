@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "motion/react";
 import { useRouter } from 'next/navigation';
 import SectionHeader from "../components/SectionHeader";
 import MovieCard from "../components/MovieCard";
@@ -24,21 +25,21 @@ interface MoviesViewProps {
 
 const genres = [
   { id: "All", name: "All" },
-  { id: "Action", name: "ක්‍රියාදාම" },
-  { id: "Crime", name: "අපරාධ" },
-  { id: "Mystery", name: "අභිරහස්" },
-  { id: "Romance", name: "ආදර කතා" },
-  { id: "Animation", name: "ඇනිමේෂන්" },
-  { id: "History", name: "ඉතිහාස" },
-  { id: "Sports", name: "ක්‍රීඩා" },
-  { id: "Thriller", name: "ත්‍රාසජනක" },
-  { id: "Drama", name: "නාට්‍යමය" },
-  { id: "Horror", name: "භයානක" },
-  { id: "Fantasy", name: "මනස්කල්පිත" },
-  { id: "Documentary", name: "වාර්තාමය" },
-  { id: "Sci-Fi", name: "විද්‍යා ප්‍රබන්ධ" },
-  { id: "Comedy", name: "හාස්‍යජනක" },
-  { id: "Ghost", name: "හොල්මන්" }
+  { id: "Action", name: "Action" },
+  { id: "Crime", name: "Crime" },
+  { id: "Mystery", name: "Mystery" },
+  { id: "Romance", name: "Romance" },
+  { id: "Animation", name: "Animation" },
+  { id: "History", name: "History" },
+  { id: "Sports", name: "Sports" },
+  { id: "Thriller", name: "Thriller" },
+  { id: "Drama", name: "Drama" },
+  { id: "Horror", name: "Horror" },
+  { id: "Fantasy", name: "Fantasy" },
+  { id: "Documentary", name: "Documentary" },
+  { id: "Sci-Fi", name: "Sci-Fi" },
+  { id: "Comedy", name: "Comedy" },
+  { id: "Ghost", name: "Ghost" }
 ];
 const qualities = ["All", "HD", "CAM"];
 const sortOptions = ["Default", "Title", "Rating", "Year"];
@@ -108,7 +109,7 @@ export default function MoviesView({
     { id: "Tamil", name: "Tamil" },
     { id: "Kannada", name: "Kannada" },
     { id: "Malayalam", name: "Malayalam" },
-    { id: "Sinhala", name: "Sinhala" },
+    
   ];
 
   const filteredMovies = useMemo(() => {
@@ -182,18 +183,18 @@ export default function MoviesView({
   const leftItems = carouselItems.filter((_, i) => i % 2 === 0);
   const rightItems = carouselItems.filter((_, i) => i % 2 === 1);
 
-  let seoTitle = "Latest Movies Sinhala Subtitle | Watch Online | MovieVibe";
-  let seoDescription = "අලුත්ම චිත්‍රපට සිංහල උපසිරැසි සහිතව. Watch the latest action, marvel, tamil and hindi movies with sinhala subtitles online for free. Download movies in 1080p/720p HD.";
+  let seoTitle = "Latest Movies  | Watch Online | MovieZen";
+  let seoDescription = "Watch the latest movies online for free. Download movies in 1080p/720p HD.";
 
   if (sortBy === "Rating") {
-    seoTitle = "Top Rated Movies IMDb Sinhala Subtitle | Best Movies Collection";
-    seoDescription = "Watch top rated IMDb movies with Sinhala subtitles. Best collection of high quality movies and TV series.";
+    seoTitle = "Top Rated Movies IMDb  | Best Movies Collection";
+    seoDescription = "Watch top rated IMDb movies. Best collection of high quality movies and TV series.";
   } else if (genre !== "All") {
-    seoTitle = `${genre} Movies Sinhala Subtitle | Watch Online Free HD`;
-    seoDescription = `Watch best ${genre} movies with Sinhala subtitles in HD quality. Free streaming with fast servers and no signup required.`;
+    seoTitle = `${genre} Movies  | Watch Online Free HD`;
+    seoDescription = `Watch best ${genre} movies in HD quality. Free streaming with fast servers and no signup required.`;
   } else if (selectedLanguage !== "All") {
-    seoTitle = `${selectedLanguage} Movies Sinhala Subtitle | Watch Free HD Online`;
-    seoDescription = `Watch ${selectedLanguage} movies and TV shows with Sinhala subtitles. Free HD streaming with daily updates.`;
+    seoTitle = `${selectedLanguage} Movies  | Watch Free HD Online`;
+    seoDescription = `Watch ${selectedLanguage} movies and TV shows . Free HD streaming with daily updates.`;
   }
 
   const getSeoDescription = () => {
@@ -202,18 +203,17 @@ export default function MoviesView({
     const langName = selectedLanguage !== "All" ? languages.find(l => l.id === selectedLanguage)?.name : "";
     const genreName = genre !== "All" ? genres.find(g => g.id === genre)?.name : "";
     
-    const sinhalaTitle = `${langName || ""}${langName && genreName ? " " : ""}${genreName || ""}`.trim();
     const englishTitle = `${selectedLanguage !== "All" ? selectedLanguage : ""}${selectedLanguage !== "All" && genre !== "All" ? " " : ""}${genre !== "All" ? genre : ""}`.trim();
 
-    return `අලුත්ම ${sinhalaTitle} චිත්‍රපට (${englishTitle} Movies) සිංහල උපසිරැසි සමඟ නැරඹීමට සහ බාගත කරගැනීමට. හොඳම සහ නවතම ${sinhalaTitle} චිත්‍රපට සිංහලෙන් උපසිරැසි ගන්වා ඇති අතර, ඔබට ඉතා පහසුවෙන් මෙම චිත්‍රපට අන්තර්ජාලය හරහා නැරඹිය හැකිය. ජනප්‍රිය ${sinhalaTitle} චිත්‍රපට රැසක් අප අඩවියෙන් නොමිලේ රසවිඳින්න.`;
+    return `Watch the latest ${englishTitle} Movies online for free. Enjoy our best and newest ${englishTitle} movies collection in HD quality. Download and stream the most popular ${englishTitle} titles easily right now.`;
   };
 
   return (
-    <div className="p-6 md:p-10 max-w-[1600px] mx-auto w-full flex-grow">
+    <div className="px-3 py-4 sm:p-6 md:p-10 max-w-[1600px] mx-auto w-full flex-grow">
       <SEO 
         title={seoTitle} 
         description={seoDescription}
-        keywords={["best action movies 2026 sinhala sub", "marvel movies sinhala sub list", "hindi movies with sinhala subtitles", "tamil movies sinhala sub", "watch movies online free sri lanka", "සිංහල උපසිරැසි සමඟ චිත්‍රපට", "sinhala subtitles movies", "sinhala sub download", "aluth film sinhala sub", "download english movies with sinhala subtitles"]}
+        keywords={["best action movies 2026", "marvel movies list", "hindi movies", "tamil movies", "watch movies online free sri lanka", "free movies online", "free movies", "movie download", "latest films", "download movies"]}
       />
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 md:mb-12">
@@ -244,8 +244,14 @@ export default function MoviesView({
         </button>
       </div>
 
-      <div className={`md:flex flex-wrap gap-4 md:gap-6 mb-10 pb-6 border-b border-[#253900] ${isFiltersOpen ? "flex" : "hidden"}`}>
-        <div className="flex flex-col gap-2 min-w-[140px] flex-1 max-w-[200px]">
+      <motion.div
+        initial={false}
+        animate={{ height: isFiltersOpen ? "auto" : 0, opacity: isFiltersOpen ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="overflow-hidden md:!h-auto md:!opacity-100 md:!overflow-visible"
+      >
+        <div className="flex flex-wrap gap-4 md:gap-6 mb-10 pb-6 border-b border-[#253900]">
+          <div className="flex flex-col gap-2 min-w-[140px] flex-1 max-w-[200px]">
           <label htmlFor="genre-select" className="text-[11px] font-bold text-gray-500 tracking-wider uppercase">
             {t("discover.genre", "GENRE")}
           </label>
@@ -304,7 +310,8 @@ export default function MoviesView({
             <ChevronDown className="w-4 h-4 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true" />
           </div>
         </div>
-      </div>
+        </div>
+      </motion.div>
 
       {getSeoDescription() && (
         <div className="mb-8 p-5 md:p-6 bg-[#0a0a0a] border-l-4 border-l-brand-600 rounded-r-xl shadow-lg border-y border-r border-y-[#1a2700] border-r-[#1a2700]">
@@ -344,7 +351,7 @@ export default function MoviesView({
       {isLoading ? (
         <SkeletonGrid />
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-6 gap-y-10" role="list" aria-label="Movies list">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-3 gap-y-6 sm:gap-x-6 sm:gap-y-10" role="list" aria-label="Movies list">
           {currentItems.length > 0 ? (
             currentItems.map((movie, index) => (
               <div key={movie.id} role="listitem">

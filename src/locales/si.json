@@ -1,44 +1,44 @@
 {
   "nav": {
-    "home": "මුල් පිටුව",
-    "discover": "සොයන්න",
-    "movies": "චිත්‍රපට",
-    "tv_series": "ටීවී කතාමාලා",
-    "channels": "නාලිකා",
-    "admin": "පරිපාලක",
-    "genres": "වර්ග",
-    "search": "චිත්‍රපට, ටීවී කතාමාලා සොයන්න...",
-    "trending_searches": "නැඹුරු සෙවුම්",
-    "recent_searches": "මෑත සෙවුම්",
-    "clear_all": "සියල්ල මකන්න",
-    "sign_in": "ඇතුල් වන්න",
-    "sign_out": "පිටවන්න",
-    "language": "භාෂාව"
+    "home": "Home",
+    "discover": "Discover",
+    "movies": "Movies",
+    "tv_series": "TV Series",
+    "channels": "Channels",
+    "admin": "Admin",
+    "genres": "Genres",
+    "search": "Search for movies, TV shows...",
+    "trending_searches": "Trending Searches",
+    "recent_searches": "Recent Searches",
+    "clear_all": "Clear all",
+    "sign_in": "Sign In",
+    "sign_out": "Sign Out",
+    "language": "Language"
   },
   "home": {
-    "hero_title": "සිංහල උපසිරැසි සමඟ Movies & TV Shows නරඹන්න",
-    "hero_subtitle": "Daily Updated English, Korean, Tamil & TV Series with Sinhala Subtitles.",
-    "search_button": "සොයන්න",
-    "browse_all": "සියලු අන්තර්ගත පිරික්සන්න",
-    "description_1": "අලුත්ම චිත්‍රපට සහ ටෙලිනාට්‍ය (Movies & TV Shows) සිංහල උපසිරැසි සමඟ නොමිලේ නැරඹීමට හොඳම තැන MovieVibe වේ. කිසිදු ලියාපදිංචි වීමකින් තොරව ඉංග්‍රීසි, දමිළ, තෙළිඟු, මලයාලම් සහ කොරියානු (K-Dramas) චිත්‍රපට හා කතාමාලා HD ගුණාත්මක බවින් අන්තර්ජාලය හරහා නරඹන්න. දිනපතා අලුත් වන අන්තර්ගතයන් සමඟින් ලංකාවේ වේගවත්ම ස්ට්‍රීමින් සහ ඩවුන්ලෝඩ් සේවාව අත්විඳින්න.",
-    "description_2": "වියාචනය: MovieVibe වෙබ් අඩවිය කිසිදු මාධ්‍ය ගොනුවක් එහි සර්වර් මත ගබඩා කර නොතිබෙන අතර මෙහි අන්තර්ගත සියළුම ලින්ක් තෙවන පාර්ශවීය වේදිකාවලින් ගෙනහැර දක්වන ලද ඒවා වේ."
+    "hero_title": "Watch Free Movies & TV Shows in HD",
+    "hero_subtitle": "Watch online or download in HD. Explore movies and TV shows from every corner of the globe. Your ultimate destination for worldwide cinema.",
+    "search_button": "Search",
+    "browse_all": "Browse All Content",
+    "description_1": "Watch free movies and TV shows online or download them in HD at MovieZen. Explore an unlimited collection of global cinema—from Hollywood hits to movies from every corner of the world. No registration needed. We are your ultimate destination for fast, high-quality streaming and downloading.",
+    "description_2": "Disclaimer: MovieZen does not host or store any media files on its servers. We only link to publicly available content hosted on non-affiliated third-party platforms."
   },
   "discover": {
-    "title": "චිත්‍රපට සොයන්න",
-    "latest": "නවතම චිත්‍රපට",
-    "all": "සියල්ල",
-    "genre": "වර්ගය",
-    "year": "වර්ෂය",
-    "rating": "IMDB ශ්‍රේණිගත කිරීම",
-    "country": "රට",
-    "network": "ජාලය",
-    "load_more": "තව පෙන්වන්න",
-    "no_movies": "තෝරාගත් පෙරහන් වලට ගැළපෙන චිත්‍රපට කිසිවක් නැත."
+    "title": "Discover Movies",
+    "latest": "Latest Movies",
+    "all": "ALL",
+    "genre": "GENRE",
+    "year": "BY YEAR",
+    "rating": "IMDB RATING",
+    "country": "COUNTRY",
+    "network": "NETWORK",
+    "load_more": "Load More",
+    "no_movies": "No movies match the selected filters."
   },
   "footer": {
-    "channels": "නාලිකා",
-    "about": "පිළිබඳව",
-    "contact": "සම්බන්ධ වන්න",
-    "faq": "නිතර අසන ප්‍රශ්න"
+    "channels": "CHANNELS",
+    "about": "ABOUT",
+    "contact": "Contact",
+    "faq": "FAQ"
   }
 }

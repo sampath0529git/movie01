@@ -58,6 +58,7 @@ export interface MediaItem {
   featured?: boolean;
   trending?: boolean;
   isUpcoming?: boolean;
+  hasSinhalaSub?: boolean;
   status?: "Published" | "Draft";
   slug?: string;
   createdAt?: any;

@@ -1,44 +1,44 @@
 {
   "nav": {
-    "home": "Inicio",
-    "discover": "Descubrir",
-    "movies": "Películas",
-    "tv_series": "Series de TV",
-    "channels": "Canales",
+    "home": "Home",
+    "discover": "Discover",
+    "movies": "Movies",
+    "tv_series": "TV Series",
+    "channels": "Channels",
     "admin": "Admin",
-    "genres": "Géneros",
-    "search": "Buscar películas, series...",
-    "trending_searches": "Búsquedas Populares",
-    "recent_searches": "Búsquedas Recientes",
-    "clear_all": "Borrar todo",
-    "sign_in": "Iniciar sesión",
-    "sign_out": "Cerrar sesión",
-    "language": "Idioma"
+    "genres": "Genres",
+    "search": "Search for movies, TV shows...",
+    "trending_searches": "Trending Searches",
+    "recent_searches": "Recent Searches",
+    "clear_all": "Clear all",
+    "sign_in": "Sign In",
+    "sign_out": "Sign Out",
+    "language": "Language"
   },
   "home": {
-    "hero_title": "සිංහල උපසිරැසි සමඟ Movies & TV Shows නරඹන්න",
-    "hero_subtitle": "Daily Updated English, Korean, Tamil & TV Series with Sinhala Subtitles.",
-    "search_button": "Buscar",
-    "browse_all": "Ver Todo el Contenido",
-    "description_1": "Mira películas de primer nivel gratis con subtítulos en inglés en MovieVibe. Es el destino definitivo para el streaming online gratuito, ofreciendo una amplia colección sin registros. Con una base de datos extensa, ¡es el mejor sitio web que no te puedes perder!",
-    "description_2": "Ten en cuenta que nuestro sitio no aloja ningún archivo; proporcionamos enlaces a medios alojados en plataformas de terceros."
+    "hero_title": "Watch Free Movies & TV Shows in HD",
+    "hero_subtitle": "Watch online or download in HD. Explore movies and TV shows from every corner of the globe. Your ultimate destination for worldwide cinema.",
+    "search_button": "Search",
+    "browse_all": "Browse All Content",
+    "description_1": "Watch free movies and TV shows online or download them in HD at MovieZen. Explore an unlimited collection of global cinema—from Hollywood hits to movies from every corner of the world. No registration needed. We are your ultimate destination for fast, high-quality streaming and downloading.",
+    "description_2": "Disclaimer: MovieZen does not host or store any media files on its servers. We only link to publicly available content hosted on non-affiliated third-party platforms."
   },
   "discover": {
-    "title": "Descubrir Películas",
-    "latest": "Últimas Películas",
-    "all": "TODOS",
-    "genre": "GÉNERO",
-    "year": "POR AÑO",
-    "rating": "PUNTUACIÓN IMDB",
-    "country": "PAÍS",
-    "network": "RED",
-    "load_more": "Cargar Más",
-    "no_movies": "No hay películas que coincidan con los filtros."
+    "title": "Discover Movies",
+    "latest": "Latest Movies",
+    "all": "ALL",
+    "genre": "GENRE",
+    "year": "BY YEAR",
+    "rating": "IMDB RATING",
+    "country": "COUNTRY",
+    "network": "NETWORK",
+    "load_more": "Load More",
+    "no_movies": "No movies match the selected filters."
   },
   "footer": {
-    "channels": "CANALES",
-    "about": "ACERCA DE",
-    "contact": "Contacto",
-    "faq": "Preguntas Frecuentes"
+    "channels": "CHANNELS",
+    "about": "ABOUT",
+    "contact": "Contact",
+    "faq": "FAQ"
   }
 }

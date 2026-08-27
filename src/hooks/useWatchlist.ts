@@ -7,7 +7,7 @@ export type WatchlistItem = MediaItem;
 export function useWatchlist() {
   const [watchlist, setWatchlist] = useState<WatchlistItem[]>(() => {
     try {
-      const stored = localStorage.getItem('movievibe_watchlist');
+      const stored = localStorage.getItem('moviezen_watchlist');
       return stored ? JSON.parse(stored) : [];
     } catch (error) {
       console.error('Error parsing watchlist from local storage:', error);
@@ -17,7 +17,7 @@ export function useWatchlist() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('movievibe_watchlist', JSON.stringify(watchlist));
+      localStorage.setItem('moviezen_watchlist', JSON.stringify(watchlist));
     } catch (error) {
       console.error('Error saving watchlist to local storage:', error);
     }

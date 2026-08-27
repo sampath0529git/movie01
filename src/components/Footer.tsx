@@ -13,19 +13,19 @@ export default function Footer() {
             <LogoImage className="w-8 h-8 drop-shadow-md" />
             <div className="flex items-center gap-0">
               <span className="text-white font-black text-2xl tracking-tighter">Movie</span>
-              <span className="text-white font-black text-2xl tracking-tighter">Vibe</span>
+              <span className="text-white font-black text-2xl tracking-tighter">Zen</span>
             </div>
           </div>
           <p className="text-sm text-gray-400 leading-relaxed mb-4">
-            {t("home.description_1", "Watch free movies and TV shows online with Sinhala subtitles at MovieVibe. Stream the latest Hollywood blockbusters, Tamil action movies, Bollywood hits, Telugu, Malayalam cinema, and trending Korean Dramas (K-Dramas) in HD quality. No registration needed. We are Sri Lanka's ultimate destination for fast, high-quality streaming with daily updates.")}
+            {t("home.description_1", "Watch free movies and TV shows online or download them in HD at MovieZen. Explore an unlimited collection of global cinema—from Hollywood hits to movies from every corner of the world. No registration needed. We are your ultimate destination for fast, high-quality streaming and downloading.")}
           </p>
           <p className="text-sm text-gray-500 leading-relaxed text-xs">
-            {t("home.description_2", "Disclaimer: MovieVibe does not host or store any media files on its servers. We only link to publicly available content hosted on non-affiliated third-party platforms.")}
+            {t("home.description_2", "Disclaimer: MovieZen does not host or store any media files on its servers. We only link to publicly available content hosted on non-affiliated third-party platforms.")}
           </p>
           <div className="mt-8 space-y-2">
-            <h4 className="text-gray-300 font-medium text-sm">MovieVibe Entertainment Ltd.</h4>
-            <p className="text-sm text-gray-500">Email: contact@movievibe.me</p>
-            <p className="text-sm text-gray-500">Support: support@movievibe.me</p>
+            <h4 className="text-gray-300 font-medium text-sm">MovieZen Entertainment Ltd.</h4>
+            <p className="text-sm text-gray-500">Email: contact@moviezen.me</p>
+            <p className="text-sm text-gray-500">Support: support@moviezen.me</p>
           </div>
         </div>
 
@@ -61,7 +61,7 @@ export default function Footer() {
       </div>
       
       <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-[#0c1200] flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-4">
-        <p>© {new Date().getFullYear()} MovieVibe. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} MovieZen. All rights reserved.</p>
         <p>Site last updated: {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
       </div>
     </footer>

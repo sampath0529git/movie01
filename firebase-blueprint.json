@@ -18,7 +18,9 @@
           "description": "Timestamp"
         }
       },
-      "required": ["usernameOrEmail"]
+      "required": [
+        "usernameOrEmail"
+      ]
     },
     "WatchlistItem": {
       "title": "Watchlist Item",
@@ -38,70 +40,182 @@
           "description": "Timestamp"
         }
       },
-      "required": ["userId", "mediaItemId"]
+      "required": [
+        "userId",
+        "mediaItemId"
+      ]
     },
     "MediaItem": {
       "title": "Media Item",
       "description": "A movie or TV series added by an admin",
       "type": "object",
       "properties": {
-        "title": { "type": "string" },
-        "rating": { "type": "string" },
-        "year": { "type": "string" },
-        "quality": { "type": "string" },
-        "type": { "type": "string" },
-        "imageUrl": { "type": "string" },
-        "genre": { "type": "string" },
-        "country": { "type": "string" },
-        "network": { "type": "string" },
-        "description": { "type": "string" },
+        "title": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "quality": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "genre": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "network": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
         "cast": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "seasons": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "seasonNumber": { "type": "number" },
+              "seasonNumber": {
+                "type": "number"
+              },
               "episodes": {
                 "type": "array",
                 "items": {
                   "type": "object",
                   "properties": {
-                    "title": { "type": "string" },
-                    "episodeNumber": { "type": "number" },
-                    "releaseDate": { "type": "string" },
-                    "videoUrl": { "type": "string" }
+                    "title": {
+                      "type": "string"
+                    },
+                    "episodeNumber": {
+                      "type": "number"
+                    },
+                    "releaseDate": {
+                      "type": "string"
+                    },
+                    "videoUrl": {
+                      "type": "string"
+                    }
                   }
                 }
               }
             }
           }
         },
-        "createdAt": { "type": "string" },
-        "featured": { "type": "boolean" },
-        "trending": { "type": "boolean" },
-        "status": { "type": "string" },
-        "bannerUrl": { "type": "string" },
-        "duration": { "type": "string" }
+        "createdAt": {
+          "type": "string"
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "trending": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string"
+        },
+        "bannerUrl": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        }
       },
-      "required": ["title", "type", "imageUrl"]
+      "required": [
+        "title",
+        "type",
+        "imageUrl"
+      ]
+    },
+    "WatchProgress": {
+      "title": "Watch Progress",
+      "description": "Tracks a user's playback progress for a media item",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "mediaId": {
+          "type": "string"
+        },
+        "mediaType": {
+          "type": "string"
+        },
+        "progress": {
+          "type": "number",
+          "description": "Progress in seconds"
+        },
+        "duration": {
+          "type": "number",
+          "description": "Total duration in seconds"
+        },
+        "seasonNumber": {
+          "type": "number"
+        },
+        "episodeNumber": {
+          "type": "number"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp of the last progress update"
+        },
+        "title": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "userId",
+        "mediaId",
+        "mediaType",
+        "progress",
+        "updatedAt",
+        "title",
+        "imageUrl"
+      ]
     }
   },
   "firestore": {
     "submissions/{submissionId}": {
-      "schema": { "$ref": "#/entities/Submission" },
+      "schema": {
+        "$ref": "#/entities/Submission"
+      },
       "description": "Submissions from the login/register modal"
     },
     "watchlist/{watchlistItemId}": {
-      "schema": { "$ref": "#/entities/WatchlistItem" },
+      "schema": {
+        "$ref": "#/entities/WatchlistItem"
+      },
       "description": "Watchlist items added by users"
     },
     "media/{mediaId}": {
-      "schema": { "$ref": "#/entities/MediaItem" },
+      "schema": {
+        "$ref": "#/entities/MediaItem"
+      },
       "description": "Media items in the platform"
+    },
+    "watch_progress/{progressId}": {
+      "schema": {
+        "$ref": "#/entities/WatchProgress"
+      },
+      "description": "Progress tracking for users"
     }
   }
 }

@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS public.media (
     featured BOOLEAN DEFAULT false,
     trending BOOLEAN DEFAULT false,
     is_upcoming BOOLEAN DEFAULT false,
+    has_sinhala_sub BOOLEAN DEFAULT false,
     status TEXT DEFAULT 'Published',
     slug TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -44,7 +45,8 @@ CREATE TABLE IF NOT EXISTS public.media (
     meta_description TEXT,
     keywords TEXT[],
     schema_markup TEXT,
-    trailer_url TEXT
+    trailer_url TEXT,
+    subtitle_download_url TEXT
 );
 
 -- 2. Create Collections Table

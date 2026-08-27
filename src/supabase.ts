@@ -1,8 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
 
 // The environment variables get injected securely
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://yfkqcbwsvlyytizfkvia.supabase.co';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlma3FjYndzdmx5eXRpemZrdmlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3NzQ2ODEsImV4cCI6MjA5NzM1MDY4MX0.AsCUZU2tK5l7eSZUPMozZZobPgZmIkNH2_mKvk4M96o';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://ajjckhgkcxfobkxsevlb.supabase.co';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFqamNraGdrY3hmb2JreHNldmxiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3MzA2NjksImV4cCI6MjEwMzMwNjY2OX0.Kudi3ZBAzXcjGQSapbKaknLWWklcpmBJNHs_wGkRReY';
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.warn('Supabase URL or Anon Key is missing. Please configure them in the environment settings.');
+}
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 

@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "motion/react";
 import { useRouter } from 'next/navigation';
 import { ChevronDown, Filter } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
@@ -63,21 +64,21 @@ export default function TvSeriesView({
 
   const genres = [
     { id: "All", name: "All" },
-    { id: "Action", name: "ක්‍රියාදාම" },
-    { id: "Crime", name: "අපරාධ" },
-    { id: "Mystery", name: "අභිරහස්" },
-    { id: "Romance", name: "ආදර කතා" },
-    { id: "Animation", name: "ඇනිමේෂන්" },
-    { id: "History", name: "ඉතිහාස" },
-    { id: "Sports", name: "ක්‍රීඩා" },
-    { id: "Thriller", name: "ත්‍රාසජනක" },
-    { id: "Drama", name: "නාට්‍යමය" },
-    { id: "Horror", name: "භයානක" },
-    { id: "Fantasy", name: "මනස්කල්පිත" },
-    { id: "Documentary", name: "වාර්තාමය" },
-    { id: "Sci-Fi", name: "විද්‍යා ප්‍රබන්ධ" },
-    { id: "Comedy", name: "හාස්‍යජනක" },
-    { id: "Ghost", name: "හොල්මන්" }
+    { id: "Action", name: "Action" },
+    { id: "Crime", name: "Crime" },
+    { id: "Mystery", name: "Mystery" },
+    { id: "Romance", name: "Romance" },
+    { id: "Animation", name: "Animation" },
+    { id: "History", name: "History" },
+    { id: "Sports", name: "Sports" },
+    { id: "Thriller", name: "Thriller" },
+    { id: "Drama", name: "Drama" },
+    { id: "Horror", name: "Horror" },
+    { id: "Fantasy", name: "Fantasy" },
+    { id: "Documentary", name: "Documentary" },
+    { id: "Sci-Fi", name: "Sci-Fi" },
+    { id: "Comedy", name: "Comedy" },
+    { id: "Ghost", name: "Ghost" }
   ];
   const years = ["All", "2026", "2025", "2024", "2019", "2005"];
   const languages = [
@@ -92,7 +93,7 @@ export default function TvSeriesView({
     { id: "Tamil", name: "Tamil" },
     { id: "Kannada", name: "Kannada" },
     { id: "Malayalam", name: "Malayalam" },
-    { id: "Sinhala", name: "Sinhala" },
+    
   ];
   const networks = [
     "All",
@@ -191,14 +192,14 @@ export default function TvSeriesView({
   let seoDescription = "Watch full episodes of your favorite TV shows online for free in HD. Fast streaming, daily updates of the latest TV series. No account needed.";
   
   if (isKorean) {
-    seoTitle = "Korean Drama Sinhala Subtitle | Watch Online Free HD";
-    seoDescription = "Watch latest Korean drama TV series with Sinhala subtitles in HD quality. Free streaming with fast servers and daily updates.";
+    seoTitle = "Korean Drama  | Watch Online Free HD";
+    seoDescription = "Watch latest Korean drama TV series in HD quality. Free streaming with fast servers and daily updates.";
   } else if (genre !== "All") {
-    seoTitle = `${genre} TV Series Sinhala Subtitle | Watch Online Free HD`;
-    seoDescription = `Watch best ${genre} TV series with Sinhala subtitles in HD quality. Free streaming with fast servers and no signup required.`;
+    seoTitle = `${genre} TV Series  | Watch Online Free HD`;
+    seoDescription = `Watch best ${genre} TV series in HD quality. Free streaming with fast servers and no signup required.`;
   } else if (selectedLanguage !== "All") {
-    seoTitle = `${selectedLanguage} TV Series Sinhala Subtitle | Watch Free HD Online`;
-    seoDescription = `Watch ${selectedLanguage} TV shows with Sinhala subtitles. Free HD streaming with daily updates.`;
+    seoTitle = `${selectedLanguage} TV Series  | Watch Free HD Online`;
+    seoDescription = `Watch ${selectedLanguage} TV shows . Free HD streaming with daily updates.`;
   }
 
   const getSeoDescription = () => {
@@ -207,18 +208,17 @@ export default function TvSeriesView({
     const langName = selectedLanguage !== "All" ? languages.find(l => l.id === selectedLanguage)?.name : "";
     const genreName = genre !== "All" ? genres.find(g => g.id === genre)?.name : "";
     
-    const sinhalaTitle = `${langName || ""}${langName && genreName ? " " : ""}${genreName || ""}`.trim();
     const englishTitle = `${selectedLanguage !== "All" ? selectedLanguage : ""}${selectedLanguage !== "All" && genre !== "All" ? " " : ""}${genre !== "All" ? genre : ""}`.trim();
 
-    return `අලුත්ම ${sinhalaTitle} ටෙලි නාට්‍ය සහ කතාමාලා (${englishTitle} TV Series) සිංහල උපසිරැසි සමඟ නැරඹීමට සහ බාගත කරගැනීමට. හොඳම සහ නවතම ${sinhalaTitle} කතාමාලා සිංහලෙන් උපසිරැසි ගන්වා ඇති අතර, ඔබට ඉතා පහසුවෙන් මේවා අන්තර්ජාලය හරහා නැරඹිය හැකිය. ජනප්‍රිය ${sinhalaTitle} කතාමාලා රැසක් අප අඩවියෙන් නොමිලේ රසවිඳින්න.`;
+    return `Watch the latest ${englishTitle} TV Series online for free. Enjoy our best and newest ${englishTitle} series collection in HD quality. Download and stream the most popular ${englishTitle} episodes easily right now.`;
   };
 
   return (
-    <div className="p-6 md:p-10 max-w-[1600px] mx-auto w-full flex-grow">
+    <div className="px-3 py-4 sm:p-6 md:p-10 max-w-[1600px] mx-auto w-full flex-grow">
       <SEO 
         title={seoTitle} 
         description={seoDescription}
-        keywords={["watch tv shows online", "free tv series", "stream tv shows free", "sinhala subtitle", "korean drama sinhala sub", "aluth film sinhala sub"]}
+        keywords={["watch tv shows online", "free tv series", "stream tv shows free", "HD moviestitle", "korean dramas", "latest films"]}
       />
       <HeroSection movies={heroItems} onSelectMedia={onSelectMedia} />
       <div className="mb-8 md:mb-12">
@@ -272,8 +272,14 @@ export default function TvSeriesView({
         </button>
       </div>
 
-      <div className={`md:flex flex-wrap gap-6 mb-10 pb-6 border-b border-[#253900] ${isFiltersOpen ? "flex" : "hidden"}`}>
-        <div className="flex flex-col gap-2 min-w-[140px] flex-1 max-w-[200px]">
+      <motion.div
+        initial={false}
+        animate={{ height: isFiltersOpen ? "auto" : 0, opacity: isFiltersOpen ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="overflow-hidden md:!h-auto md:!opacity-100 md:!overflow-visible"
+      >
+        <div className="flex flex-wrap gap-6 mb-10 pb-6 border-b border-[#253900]">
+          <div className="flex flex-col gap-2 min-w-[140px] flex-1 max-w-[200px]">
           <span className="text-[11px] font-bold text-gray-500 tracking-wider">
             ALL
           </span>
@@ -375,12 +381,13 @@ export default function TvSeriesView({
             <ChevronDown className="w-4 h-4 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
         </div>
-      </div>
+        </div>
+      </motion.div>
 
       {!isLoading && latestEpisodesShows.length > 0 && currentPage === 1 && (
         <div className="mb-12">
           <SectionHeader title="Latest Episodes" />
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-3 gap-y-6 sm:gap-x-6 sm:gap-y-10">
             {latestEpisodesShows.map((tv, index) => (
               <div
                 key={`latest-ep-${tv.id}`}
@@ -403,7 +410,7 @@ export default function TvSeriesView({
       {isLoading ? (
         <SkeletonGrid />
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-6 gap-y-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-3 gap-y-6 sm:gap-x-6 sm:gap-y-10">
           {currentItems.length > 0 ? (
             currentItems.map((tv, index) => (
               <div

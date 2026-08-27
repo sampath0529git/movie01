@@ -54,7 +54,7 @@ export default function HeroCarousel({
             >
               <img
                 src={item.heroUrl || item.imageUrl}
-                alt={`Watch ${item.title} ${item.year ? `(${item.year})` : ''} Sinhala sub High Definition Stream Online Free`}
+                alt={`Watch ${item.title} ${item.year ? `(${item.year})` : ''} Watch Online High Definition Stream Online Free`}
                 width="1920"
                 height="1080"
                 className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"

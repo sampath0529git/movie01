@@ -31,6 +31,7 @@ import { createPortal } from "react-dom";
 import { User } from "firebase/auth";
 import { auth } from "../firebase";
 import { useTranslation } from "react-i18next";
+import { supabase, snakeToCamel } from "../supabase";
 
 interface NavbarProps {
   currentView: ViewState;
@@ -162,27 +163,40 @@ export default function Navbar({
   }, [searchQuery]);
 
   useEffect(() => {
+    let isActive = true;
+
     if (debouncedQuery.trim().length >= 3) {
       setIsSearching(true);
-      try {
-        if (customMedia) {
-          const queryLower = debouncedQuery.toLowerCase();
-          const results = customMedia
-            .filter((item) => item.title && item.title.toLowerCase().includes(queryLower))
-            .slice(0, 10);
-          setApiResults(results);
-        } else {
-          setApiResults([]);
+      const fetchResults = async () => {
+        try {
+          const { data, error } = await supabase
+            .from('media')
+            .select('*')
+            .ilike('title', `%${debouncedQuery.trim()}%`)
+            .order('created_at', { ascending: false })
+            .limit(10);
+            
+          if (error) {
+            console.error(error);
+          } else if (isActive) {
+            setApiResults(snakeToCamel(data) || []);
+          }
+        } catch (error) {
+          console.error(error);
+        } finally {
+          if (isActive) setIsSearching(false);
         }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsSearching(false);
-      }
+      };
+      fetchResults();
     } else {
       setApiResults([]);
+      setIsSearching(false);
     }
-  }, [debouncedQuery, customMedia]);
+
+    return () => {
+      isActive = false;
+    };
+  }, [debouncedQuery]);
 
   useEffect(() => {
     setSelectedIndex(-1);
@@ -253,7 +267,7 @@ export default function Navbar({
 
   return (
     <>
-    <nav className="flex items-center justify-between px-3 md:px-6 py-4 bg-[#000000]/90 backdrop-blur-md sticky top-0 z-40 border-b border-[#0c1200] gap-2 lg:gap-4">
+    <nav className="flex items-center justify-between px-3 md:px-6 py-4 bg-[#000000]/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-[#0c1200] gap-2 lg:gap-4">
       <div className="flex items-center gap-3 lg:gap-4 xl:gap-8 w-[110px] sm:w-auto overflow-hidden">
         <Link
           href="/"
@@ -265,7 +279,7 @@ export default function Navbar({
               Movie
             </span>
             <span className="text-white font-black text-lg sm:text-xl md:text-2xl tracking-tighter">
-              Vibe
+              Zen
             </span>
           </div>
         </Link>
@@ -394,7 +408,7 @@ export default function Navbar({
                             <div className="relative aspect-[2/3] overflow-hidden rounded bg-[#253900]">
                               <img
                                 src={item.imageUrl}
-                                alt={`${item.title} Sinhala sub`}
+                                alt={`${item.title} Watch Online`}
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                               />
                               <div className="absolute top-1 left-1 bg-[#0d1400]/95 text-white text-[9px] px-1 py-0.5 rounded flex items-center gap-1 font-bold border border-[#385600]">
@@ -559,7 +573,7 @@ export default function Navbar({
                 <LogoImage className="w-8 h-8 drop-shadow-md mr-1" />
                 <div className="flex items-center gap-0">
                   <span className="text-[#39FF14] font-black text-2xl tracking-tighter">Movie</span>
-                  <span className="text-white font-black text-2xl tracking-tighter">Vibe</span>
+                  <span className="text-white font-black text-2xl tracking-tighter">Zen</span>
                 </div>
               </div>
               <button
@@ -688,7 +702,7 @@ export default function Navbar({
                         <div className="relative aspect-[2/3] overflow-hidden rounded bg-[#253900]">
                           <img
                             src={item.imageUrl}
-                            alt={`${item.title} Sinhala sub`}
+                            alt={`${item.title} Watch Online`}
                             className="w-full h-full object-cover"
                           />
                           <div className="absolute top-1 left-1 bg-[#0d1400]/95 text-white text-[9px] px-1 py-0.5 rounded flex items-center gap-1 font-bold border border-[#385600]">

@@ -103,7 +103,7 @@ export default function MovieCard({ item, onClick, priority = false }: MovieCard
       <div className="relative aspect-[2/3] overflow-hidden rounded-xl bg-[#253900] shadow-[0_4px_10px_rgba(0,0,0,0.5)] transition-all duration-300 group-hover:shadow-[0_8px_30px_rgb(0,0,0,0.8)] border-2 border-transparent group-hover:border-brand-600/60">
         <img
           src={item.imageUrl}
-          alt={item.imageAlt || `${item.title} ${item.year ? item.year : ''} Sinhala Subtitles | සිංහල උපසිරැසි සමඟ`.trim().replace(/  +/g, ' ')}
+          alt={item.imageAlt || `${item.title} ${item.year ? item.year : ''} Watch Free | watch online`.trim().replace(/  +/g, ' ')}
           width="300"
           height="450"
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
@@ -117,6 +117,11 @@ export default function MovieCard({ item, onClick, priority = false }: MovieCard
 
         {/* Overlays top-left */}
         <div className="absolute top-2 left-2 flex flex-col items-start gap-1 z-20">
+          {item.hasSinhalaSub && (
+            <div className="bg-brand-600 text-white text-[12px] font-black px-2 py-1 rounded-md shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+              සි
+            </div>
+          )}
           {item.isUpcoming && (
             <div className="bg-yellow-500 text-black text-[12px] font-black px-2 py-1 rounded-md shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
               UPCOMING

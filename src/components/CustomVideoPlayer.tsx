@@ -1,4 +1,5 @@
 "use client";
+import { useAuth, saveWatchProgress } from "../firebase";
 import React, { useEffect, useRef, useState, useImperativeHandle, forwardRef, useMemo } from "react";
 import Hls from "hls.js";
 import { 
@@ -105,6 +106,9 @@ interface CustomVideoPlayerProps {
   playerMode?: "auto" | "native" | "iframe";
   nextEpisodeTitle?: string;
   onNextEpisode?: () => void;
+  item?: any;
+  seasonNumber?: number;
+  episodeNumber?: number;
 }
 
 export interface CustomVideoPlayerRef {
@@ -137,6 +141,7 @@ export const CustomVideoPlayer = forwardRef<CustomVideoPlayerRef, CustomVideoPla
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
+    const { user } = useAuth();
     const [volume, setVolume] = useState(() => {
       if (typeof window !== "undefined") {
         const savedVolume = localStorage.getItem("player_volume");
@@ -369,7 +374,7 @@ export const CustomVideoPlayer = forwardRef<CustomVideoPlayerRef, CustomVideoPla
     // Check for saved progress to offer resume
     useEffect(() => {
       if (isIframe || !mediaId) return;
-      const savedTimeStr = localStorage.getItem(`movievibe_progress_${mediaId}`);
+      const savedTimeStr = localStorage.getItem(`moviezen_progress_${mediaId}`);
       if (savedTimeStr) {
         const savedTime = parseFloat(savedTimeStr);
         if (savedTime > 8) {
@@ -392,9 +397,22 @@ export const CustomVideoPlayer = forwardRef<CustomVideoPlayerRef, CustomVideoPla
           const currentTimeVal = video.currentTime;
           const durationVal = video.duration;
           if (currentTimeVal > 5 && durationVal && durationVal - currentTimeVal > 10) {
-            localStorage.setItem(`movievibe_progress_${mediaId}`, currentTimeVal.toString());
+            localStorage.setItem(`moviezen_progress_${mediaId}`, currentTimeVal.toString());
+            if (user?.uid && item) {
+              saveWatchProgress({
+                userId: user.uid,
+                mediaId,
+                mediaType: item.type,
+                progress: currentTimeVal,
+                duration: durationVal,
+                seasonNumber,
+                episodeNumber,
+                title: item.title,
+                imageUrl: item.imageUrl
+              }).catch(e => console.error("Error saving progress", e));
+            }
           } else if (durationVal && durationVal - currentTimeVal <= 10) {
-            localStorage.removeItem(`movievibe_progress_${mediaId}`);
+            localStorage.removeItem(`moviezen_progress_${mediaId}`);
           }
         }
       }, 5000);
@@ -612,40 +630,63 @@ export const CustomVideoPlayer = forwardRef<CustomVideoPlayerRef, CustomVideoPla
           return;
         }
 
-        switch (e.code) {
-          case "Space":
+        const key = e.key.toLowerCase();
+
+        switch (key) {
+          case " ":
             e.preventDefault();
-            togglePlay();
+            if (video.paused) {
+              video.play().catch(() => {});
+              setShowPlayPausePulse("play");
+            } else {
+              video.pause();
+              setShowPlayPausePulse("pause");
+            }
+            setTimeout(() => setShowPlayPausePulse(null), 600);
             break;
-          case "ArrowLeft":
+          case "arrowleft":
             e.preventDefault();
             video.currentTime = Math.max(0, video.currentTime - 10);
+            setShowBackwardFeedback(true);
+            setTimeout(() => setShowBackwardFeedback(false), 650);
             break;
-          case "ArrowRight":
+          case "arrowright":
             e.preventDefault();
             video.currentTime = Math.min(video.duration || 0, video.currentTime + 10);
+            setShowForwardFeedback(true);
+            setTimeout(() => setShowForwardFeedback(false), 650);
             break;
-          case "ArrowUp":
+          case "arrowup":
             e.preventDefault();
             video.volume = Math.min(1, video.volume + 0.1);
+            video.muted = false; // Unmute on volume up
             break;
-          case "ArrowDown":
+          case "arrowdown":
             e.preventDefault();
             video.volume = Math.max(0, video.volume - 0.1);
+            if (video.volume === 0) video.muted = true;
             break;
-          case "KeyM":
+          case "m":
             e.preventDefault();
-            const nextMute = !video.muted;
-            video.muted = nextMute;
-            setIsMuted(nextMute);
+            video.muted = !video.muted;
+            if (!video.muted && video.volume === 0) {
+              video.volume = 0.5;
+            }
             break;
-          case "KeyC":
+          case "c":
             e.preventDefault();
             setSubtitlesEnabled(prev => !prev);
             break;
-          case "KeyF":
+          case "f":
             e.preventDefault();
-            toggleFullscreen();
+            const container = containerRef.current;
+            if (container) {
+              if (!document.fullscreenElement) {
+                container.requestFullscreen().catch(() => {});
+              } else {
+                document.exitFullscreen().catch(() => {});
+              }
+            }
             break;
           default:
             break;

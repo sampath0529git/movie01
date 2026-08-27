@@ -22,7 +22,7 @@ export const mediaSchemaKeys = new Set([
   'seasons', 'completed_season_tag', 'video_url', 'player2_url', 'player3_url', 'player3_working',
   'player4_url', 'subtitle_url', 'subtitle_vtt', 'download_link_480p', 'download_link_720p',
   'download_link_1080p', 'download_telegram', 'download_direct', 'download_torrent', 'featured',
-  'trending', 'is_upcoming', 'status', 'slug', 'created_at', 'seo_title', 'meta_description',
+  'trending', 'is_upcoming', 'has_sinhala_sub', 'status', 'slug', 'created_at', 'seo_title', 'meta_description',
   'keywords', 'schema_markup', 'trailer_url', 'subtitle_download_url'
 ]);
 
@@ -166,7 +166,7 @@ export function useAuth() {
 
   // We mocked user as requested so admin side keeps working without full auth config
   useEffect(() => {
-     setUser({ email: 'admin@movievibe.com', uid: 'admin' });
+     setUser({ email: 'admin@moviezen.com', uid: 'admin' });
      setLoading(false);
   }, []);
 
@@ -176,6 +176,46 @@ export function useAuth() {
   return { user, loading, isAdmin: true, login, logout, isGoogleLoading: false, handleGoogleSignIn: () => {} };
 }
 
-export const db = {} as any; 
+
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore, collection, doc, setDoc, getDocs, query, where, orderBy, limit, serverTimestamp } from 'firebase/firestore';
+import firebaseConfig from '../firebase-applet-config.json';
+
+const app = initializeApp(firebaseConfig);
+export const firestoreDb = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+
+export async function saveWatchProgress(data: {
+  userId: string;
+  mediaId: string;
+  mediaType: string;
+  progress: number;
+  duration?: number;
+  seasonNumber?: number;
+  episodeNumber?: number;
+  title: string;
+  imageUrl: string;
+}) {
+  if (!data.userId) return;
+  const progressId = `${data.userId}_${data.mediaId}`;
+  const docRef = doc(firestoreDb, 'watch_progress', progressId);
+  await setDoc(docRef, {
+    ...data,
+    updatedAt: serverTimestamp()
+  }, { merge: true });
+}
+
+export async function getContinueWatching(userId: string) {
+  if (!userId) return [];
+  const q = query(
+    collection(firestoreDb, 'watch_progress'),
+    where('userId', '==', userId),
+    orderBy('updatedAt', 'desc'),
+    limit(10)
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+}
+ 
 export const auth = { signOut: async () => {} } as any; 
 export const storage = {} as any; 

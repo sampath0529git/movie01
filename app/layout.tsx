@@ -5,13 +5,13 @@ import { I18nProvider } from '@/components/I18nProvider';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'MovieVibe',
-  description: 'Watch movies and TV shows',
+  title: 'MovieZen',
+  description: 'Watch free movies and TV shows online',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="si">
+    <html lang="en">
       <body className="bg-black text-white min-h-screen flex flex-col font-sans selection:bg-brand-700/50">
         <I18nProvider>
           {children}

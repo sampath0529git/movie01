@@ -1,7 +1,8 @@
 "use client";
 import { useRouter } from 'next/navigation';
 import { ViewState, MediaItem } from '../types';
-import { Search, Star, TrendingUp, ChevronDown } from 'lucide-react';
+import { Search, Star, TrendingUp, ChevronDown, Clock } from 'lucide-react';
+import { useAuth, getContinueWatching } from '../firebase';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import MovieCard from '../components/MovieCard';
@@ -28,6 +29,8 @@ export default function HomeView({ setCurrentView, onSelectMedia, customMedia, i
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const [continueWatching, setContinueWatching] = useState<any[]>([]);
+  const { user } = useAuth();
   
   const trendingSearches = [
     "Inception",
@@ -46,6 +49,12 @@ export default function HomeView({ setCurrentView, onSelectMedia, customMedia, i
   }, []);
 
   const navigate = useRouter();
+
+  useEffect(() => {
+    if (user?.uid) {
+      getContinueWatching(user.uid).then(data => setContinueWatching(data)).catch(console.error);
+    }
+  }, [user]);
 
   const handleSearchCommit = (query: string) => {
     if (!query.trim()) return;
@@ -116,28 +125,43 @@ export default function HomeView({ setCurrentView, onSelectMedia, customMedia, i
   };
 
   return (
-    <div className="flex-grow flex flex-col items-center justify-center p-8 bg-[#000000] animate-in fade-in slide-in-from-bottom-8 duration-700 ease-out">
+    <div className="flex-grow flex flex-col items-center bg-[#000000] animate-in fade-in slide-in-from-bottom-8 duration-700 ease-out w-full pb-8">
       <SEO 
-        title="Watch Free Movies & TV Shows Online in HD with Sinhala Subtitles" 
-        description="Stream free movies and TV shows online with Sinhala subtitles. No registration required. Enjoy HD quality content updated daily."
-        keywords={["Sinhala subtitles", "Sinhala sub", "movies sinhala subtitle", "Sinhala sub movies", "download movies sinhala subtitles", "movievibe", "සිංහල උපසිරැසි", "free movies online Sri Lanka", "watch TV shows free HD", "Korean dramas Sinhala subtitles"]}
+        title="Watch Free Movies & TV Shows Online in HD Quality" 
+        description="Stream free movies and TV shows online. No registration required. Enjoy HD quality content updated daily."
+        keywords={["HD Movies", "movies online", "download movies online", "moviezen", "watch free movies online", "watch TV shows free HD"]}
       />
-      <div className="flex items-center gap-3 mb-6 sm:mb-8 scale-[1.2] sm:scale-[1.3] drop-shadow-[0_0_15px_rgba(57,255,20,0.2)]">
-        <LogoImage className="w-12 h-12 drop-shadow-lg" />
-        <div className="flex items-center gap-0">
-          <span className="text-[#39FF14] font-black text-4xl sm:text-5xl tracking-tighter">Movie</span>
-          <span className="text-white font-black text-4xl sm:text-5xl tracking-tighter">Vibe</span>
+      
+      {/* Hero Section */}
+      <div className="relative w-full h-[60vh] min-h-[400px] md:min-h-[550px] flex flex-col justify-center items-center px-4 overflow-hidden mb-8">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Cinema Background" 
+            className="w-full h-full object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-80"></div>
+        </div>
+        
+        <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center mt-12">
+          <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-400 text-sm font-semibold tracking-wide uppercase shadow-[0_0_15px_rgba(57,255,20,0.2)]">
+            <Star className="w-4 h-4 fill-brand-500 text-brand-500" />
+            <span>100% Free Streaming</span>
+          </div>
+          
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white mb-4 sm:mb-6 leading-tight tracking-tight drop-shadow-2xl">
+            Unlimited <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-[#39FF14]">Movies</span>,<br/>
+            TV Shows, and More.
+          </h1>
+          
+          <p className="text-gray-300 mb-8 sm:mb-10 text-base sm:text-lg md:text-xl max-w-2xl font-medium leading-relaxed drop-shadow-md">
+            Watch online or download in HD. Explore movies and TV shows from every corner of the globe. Your ultimate destination for worldwide cinema.
+          </p>
         </div>
       </div>
 
-      <h1 className="text-[18px] sm:text-3xl md:text-4xl font-bold text-white mt-4 mb-2 text-center drop-shadow-lg px-2 sm:px-4 leading-tight">
-        Free Movies & TV Shows with Sinhala Subtitles
-      </h1>
-      <p className="text-gray-400 mb-10 text-center text-[13px] sm:text-base md:text-lg px-6 max-w-2xl leading-normal sm:leading-relaxed">
-        {t("home.hero_subtitle", "Daily Updated English, Korean, Tamil & TV Series with Sinhala Subtitles.")}
-      </p>
-
-      <div className="flex w-full max-w-3xl gap-4 mb-6 relative group" ref={searchRef}>
+      <div className="flex w-full max-w-3xl gap-4 mb-6 relative group px-4 z-20 -mt-16 sm:-mt-24" ref={searchRef}>
         <div className="flex-grow relative">
           <input 
             type="text" 
@@ -198,7 +222,7 @@ export default function HomeView({ setCurrentView, onSelectMedia, customMedia, i
                             <div className="relative aspect-[2/3] overflow-hidden rounded bg-[#253900]">
                               <img
                                 src={item.imageUrl}
-                                alt={`${item.title} Sinhala sub`}
+                                alt={`${item.title} HD Movies`}
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                                 loading="lazy"
                               />
@@ -298,6 +322,40 @@ export default function HomeView({ setCurrentView, onSelectMedia, customMedia, i
           {t("home.search_button", "Search")}
         </button>
       </div>
+
+
+      {continueWatching.length > 0 && (
+        <div className="w-full max-w-7xl mx-auto mt-12 mb-2 overflow-hidden">
+          <div className="flex items-center mb-4 px-2">
+            <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2 text-white">
+              <Clock className="text-brand-500 w-6 h-6" />
+              Continue Watching
+            </h2>
+          </div>
+          <div className="relative w-full">
+            <div className="flex gap-3 md:gap-4 px-2 pb-4 overflow-x-auto custom-scrollbar">
+              {continueWatching.map((item, index) => (
+                <div 
+                  key={`cw-${item.id}-${index}`} 
+                  className="w-[120px] sm:w-[160px] md:w-[200px] lg:w-[220px] shrink-0 cursor-pointer relative group"
+                  onClick={() => navigate.push(`/${item.mediaType.toLowerCase() === 'movie' ? 'movies' : 'tv'}/${item.mediaId}`)}
+                >
+                  <div className="w-full aspect-[2/3] rounded-xl overflow-hidden bg-[#253900] relative">
+                    <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-800">
+                      <div className="h-full bg-brand-500" style={{ width: `${Math.min(100, Math.max(0, (item.progress / (item.duration || 1)) * 100))}%` }}></div>
+                    </div>
+                  </div>
+                  <h3 className="text-white font-semibold text-sm mt-2 truncate">{item.title}</h3>
+                  {item.mediaType === 'TV' && item.seasonNumber !== undefined && item.episodeNumber !== undefined && (
+                    <p className="text-xs text-gray-400">S{item.seasonNumber} E{item.episodeNumber}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {isLoading ? (
         <div className="w-full max-w-7xl mx-auto mt-12 mb-8 overflow-hidden">

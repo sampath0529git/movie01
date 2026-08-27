@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "motion/react";
 import { usePathname, useSearchParams } from 'next/navigation';
 import { ChevronDown, Filter } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
@@ -40,21 +41,21 @@ export default function DiscoverView({
 
   const genres = [
     { id: "All", name: "All" },
-    { id: "Action", name: "ක්‍රියාදාම" },
-    { id: "Crime", name: "අපරාධ" },
-    { id: "Mystery", name: "අභිරහස්" },
-    { id: "Romance", name: "ආදර කතා" },
-    { id: "Animation", name: "ඇනිමේෂන්" },
-    { id: "History", name: "ඉතිහාස" },
-    { id: "Sports", name: "ක්‍රීඩා" },
-    { id: "Thriller", name: "ත්‍රාසජනක" },
-    { id: "Drama", name: "නාට්‍යමය" },
-    { id: "Horror", name: "භයානක" },
-    { id: "Fantasy", name: "මනස්කල්පිත" },
-    { id: "Documentary", name: "වාර්තාමය" },
-    { id: "Sci-Fi", name: "විද්‍යා ප්‍රබන්ධ" },
-    { id: "Comedy", name: "හාස්‍යජනක" },
-    { id: "Ghost", name: "හොල්මන්" }
+    { id: "Action", name: "Action" },
+    { id: "Crime", name: "Crime" },
+    { id: "Mystery", name: "Mystery" },
+    { id: "Romance", name: "Romance" },
+    { id: "Animation", name: "Animation" },
+    { id: "History", name: "History" },
+    { id: "Sports", name: "Sports" },
+    { id: "Thriller", name: "Thriller" },
+    { id: "Drama", name: "Drama" },
+    { id: "Horror", name: "Horror" },
+    { id: "Fantasy", name: "Fantasy" },
+    { id: "Documentary", name: "Documentary" },
+    { id: "Sci-Fi", name: "Sci-Fi" },
+    { id: "Comedy", name: "Comedy" },
+    { id: "Ghost", name: "Ghost" }
   ];
   const years = ["All", "2026", "2025", "2024", "2023", "2022", "2021", "2020", "2019", "2005"];
   const networks = [
@@ -119,11 +120,11 @@ export default function DiscoverView({
     "w-full bg-[#161616] border border-[#1a2700] rounded-md px-4 py-2.5 text-sm text-gray-300 font-medium hover:bg-[#0d1400] focus:outline-none appearance-none cursor-pointer";
 
   return (
-    <div className="p-6 md:p-10 max-w-[1600px] mx-auto w-full">
+    <div className="px-3 py-4 sm:p-6 md:p-10 max-w-[1600px] mx-auto w-full">
       <SEO 
-        title="Trending Movies & TV Shows Sinhala Subtitle | Watch Latest Updates" 
-        description="Discover trending movies and TV shows with Sinhala subtitles. Updated daily with latest releases and popular titles."
-        keywords={["discover movies", "find tv shows", "trending movies", "top rated tv series", "movie recommendations", "movievibe discover", "sinhala subtitle"]}
+        title="Trending Movies & TV Shows  | Watch Latest Updates" 
+        description="Discover trending movies and TV shows . Updated daily with latest releases and popular titles."
+        keywords={["discover movies", "find tv shows", "trending movies", "top rated tv series", "movie recommendations", "moviezen discover", "HD moviestitle"]}
       />
 
       {/* Hero Section */}
@@ -170,8 +171,14 @@ export default function DiscoverView({
         </button>
       </div>
 
-      <div className={`md:flex flex-wrap gap-6 mb-10 pb-6 border-b border-[#253900] ${isFiltersOpen ? "flex" : "hidden"}`}>
-        <div className="flex flex-col gap-2 min-w-[140px] flex-1 max-w-[200px]">
+      <motion.div
+        initial={false}
+        animate={{ height: isFiltersOpen ? "auto" : 0, opacity: isFiltersOpen ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="overflow-hidden md:!h-auto md:!opacity-100 md:!overflow-visible"
+      >
+        <div className="flex flex-wrap gap-6 mb-10 pb-6 border-b border-[#253900]">
+          <div className="flex flex-col gap-2 min-w-[140px] flex-1 max-w-[200px]">
           <span className="text-[11px] font-bold text-gray-500 tracking-wider uppercase">
             {t("discover.all", "ALL")}
           </span>
@@ -273,7 +280,8 @@ export default function DiscoverView({
             <ChevronDown className="w-4 h-4 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
         </div>
-      </div>
+        </div>
+      </motion.div>
 
       <div className="mb-10 mt-4">
         <h2 className="text-2xl font-bold text-white mb-6">Popular Of The Week</h2>
@@ -292,7 +300,7 @@ export default function DiscoverView({
                   </span>
                   <img
                     src={movie.imageUrl}
-                    alt={`${movie.title} Sinhala sub`}
+                    alt={`${movie.title} HD movies`}
                     className="w-[70px] h-[100px] sm:w-[90px] sm:h-[130px] rounded-lg object-cover shadow-lg group-hover:ring-2 ring-brand-500 transition-all"
                   />
                   <div className="flex flex-col justify-center flex-1 overflow-hidden">
@@ -327,7 +335,7 @@ export default function DiscoverView({
       {isLoading ? (
         <SkeletonGrid />
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6">
           {currentItems.length > 0 ? (
             currentItems.map((movie, index) => (
               <MovieCard

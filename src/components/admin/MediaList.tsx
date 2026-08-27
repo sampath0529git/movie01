@@ -171,6 +171,11 @@ export default function MediaList({
                             Featured
                           </span>
                         )}
+                        {item.hasSinhalaSub && (
+                          <span className="px-1.5 py-0.5 bg-brand-500/20 text-brand-400 rounded text-[10px] font-bold">
+                            Sinhala Sub
+                          </span>
+                        )}
                       </div>
                     </div>
                   </td>

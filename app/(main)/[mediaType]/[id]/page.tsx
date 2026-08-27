@@ -13,10 +13,10 @@ export async function generateMetadata(
   const { id } = await params;
   
   let slug = id;
-  if (slug.endsWith('-sinhala-subtitles')) {
-    slug = slug.replace('-sinhala-subtitles', '-sinhala-sub');
-  } else if (slug.endsWith('-sinhala-sub')) {
-    slug = slug.replace('-sinhala-sub', '-sinhala-subtitles');
+  if (slug.endsWith('-watch-online')) {
+    slug = slug.replace('-watch-online', '-watch-free');
+  } else if (slug.endsWith('-watch-free')) {
+    slug = slug.replace('-watch-free', '-watch-online');
   }
 
   // Fetch data
@@ -28,8 +28,8 @@ export async function generateMetadata(
 
   if (data && data.length > 0) {
     const item = snakeToCamel(data[0]);
-    const title = item.seoTitle || `${item.title} (${item.year}) Sinhala Subtitles | MovieVibe`;
-    const description = item.metaDescription || item.description?.substring(0, 160) || `Download & Watch ${item.title} with Sinhala Subtitles.`;
+    const title = item.seoTitle || `${item.title} (${item.year}) | MovieZen`;
+    const description = item.metaDescription || item.description?.substring(0, 160) || `Download & Watch ${item.title} .`;
     const image = item.bannerUrl || item.imageUrl;
 
     return {
@@ -52,7 +52,7 @@ export async function generateMetadata(
   }
 
   return {
-    title: 'Watch on MovieVibe',
+    title: 'Watch on MovieZen',
   }
 }
 

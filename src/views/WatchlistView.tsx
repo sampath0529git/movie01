@@ -14,8 +14,8 @@ export default function WatchlistView() {
   return (
     <div className="flex-grow bg-[#000000] min-h-screen">
       <SEO 
-        title="My Watchlist - MovieVibe"
-        description="Your personal watchlist on MovieVibe."
+        title="My Watchlist - MovieZen"
+        description="Your personal watchlist on MovieZen."
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-8 border-l-4 border-brand-500 pl-4">

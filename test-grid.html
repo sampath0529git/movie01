@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+.grid-anim {
+  display: grid;
+  transition: grid-template-rows 300ms, opacity 300ms;
+}
+.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.closed {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+.inner {
+  overflow: hidden;
+}
+</style>
+</head>
+<body>
+  <button onclick="document.getElementById('anim').classList.toggle('open'); document.getElementById('anim').classList.toggle('closed')">Toggle</button>
+  <div id="anim" class="grid-anim closed">
+    <div class="inner">
+      <div class="bg-red-500 p-10">Hello World</div>
+    </div>
+  </div>
+</body>
+</html>

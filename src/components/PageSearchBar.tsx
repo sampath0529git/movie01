@@ -120,7 +120,7 @@ export default function PageSearchBar({ onSelectMedia, placeholder, defaultLocal
                     <div className="relative aspect-[2/3] overflow-hidden rounded bg-[#253900]">
                       <img
                         src={item.imageUrl}
-                        alt={`${item.title} Sinhala sub`}
+                        alt={`${item.title} Watch Online`}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                       />
                       <div className="absolute top-1 left-1 bg-[#0d1400]/95 text-white text-[9px] px-1 py-0.5 rounded flex items-center gap-1 font-bold border border-[#385600]">

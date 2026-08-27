@@ -83,12 +83,12 @@ export default function WatchView({ item: propItem, onBack, onSelectMedia }: Wat
             if (slugData && slugData.length > 0) {
               matchedItem = snakeToCamel(slugData[0]);
             } else {
-              // Try matching without "-sinhala-subtitles" or "-sinhala-sub" if the URL has it
+              // Try matching without "-watch-online" or "-watch-free" if the URL has it
               let alternateSlug = id;
-              if (id.endsWith('-sinhala-subtitles')) {
-                alternateSlug = id.replace('-sinhala-subtitles', '-sinhala-sub');
-              } else if (id.endsWith('-sinhala-sub')) {
-                alternateSlug = id.replace('-sinhala-sub', '-sinhala-subtitles');
+              if (id.endsWith('-watch-online')) {
+                alternateSlug = id.replace('-watch-online', '-watch-free');
+              } else if (id.endsWith('-watch-free')) {
+                alternateSlug = id.replace('-watch-free', '-watch-online');
               }
               
               const { data: altSlugData } = await supabase.from('media').select('*').eq('slug', alternateSlug).limit(1);
@@ -557,7 +557,7 @@ export default function WatchView({ item: propItem, onBack, onSelectMedia }: Wat
         title={item.title} 
       />
 
-      <div className="p-6 md:p-10 max-w-[1600px] mx-auto w-full flex-grow flex flex-col items-center">
+      <div className="px-3 py-4 sm:p-6 md:p-10 max-w-[1600px] mx-auto w-full flex-grow flex flex-col items-center">
         
         {/* Breadcrumb Navigation Schema & UI */}
         <Breadcrumbs item={item} />
@@ -644,6 +644,9 @@ export default function WatchView({ item: propItem, onBack, onSelectMedia }: Wat
                     onEnded={isSeries ? handleNextEpisode : undefined}
                     nextEpisodeTitle={nextEpisodeTitle}
                     onNextEpisode={nextEpisodeTitle ? handleNextEpisode : undefined}
+                    item={item}
+                    seasonNumber={selectedSeason?.seasonNumber}
+                    episodeNumber={selectedEpisode?.episodeNumber}
                   />
                 </React.Suspense>
               ) : (
@@ -659,7 +662,7 @@ export default function WatchView({ item: propItem, onBack, onSelectMedia }: Wat
               <div className="w-full aspect-video flex items-center justify-center relative">
                 <img
                   src={item.imageUrl}
-                  alt={item.imageAlt || `${item.title} ${item.year ? item.year : ''} Sinhala Subtitles | සිංහල උපසිරැසි සමඟ`.trim().replace(/  +/g, ' ')}
+                  alt={item.imageAlt || `${item.title} ${item.year ? item.year : ''} Watch Free | watch online`.trim().replace(/  +/g, ' ')}
                   width="1920"
                   height="1080"
                   className="absolute inset-0 w-full h-full object-cover opacity-40 blur-sm pointer-events-none"
@@ -849,7 +852,7 @@ export default function WatchView({ item: propItem, onBack, onSelectMedia }: Wat
           <div className="w-40 sm:w-56 shrink-0 relative rounded-lg overflow-hidden shadow-lg shadow-black/50 mx-auto md:mx-0 bg-transparent flex items-start justify-center h-full">
             <img
               src={item.imageUrl}
-              alt={item.imageAlt || `${item.title} ${item.year ? item.year : ''} Sinhala Subtitles | සිංහල උපසිරැසි සමඟ`.trim().replace(/  +/g, ' ')}
+              alt={item.imageAlt || `${item.title} ${item.year ? item.year : ''} Watch Free | watch online`.trim().replace(/  +/g, ' ')}
               width="300"
               height="450"
               className="w-full max-h-[24rem] object-contain object-top rounded-lg"
@@ -861,7 +864,7 @@ export default function WatchView({ item: propItem, onBack, onSelectMedia }: Wat
           <div className="flex flex-col max-w-3xl w-full md:max-h-[24rem]">
             <div className="flex items-center gap-4 mb-2 flex-wrap shrink-0">
               <h1 className="text-3xl sm:text-4xl text-white font-bold md:leading-snug">
-                {item.title} <span className="text-gray-400 text-2xl sm:text-3xl">{item.year ? `(${item.year})` : ''}</span> Sinhala Subtitles | සිංහල උපසිරැසි සමඟ
+                {item.title} <span className="text-gray-400 text-2xl sm:text-3xl">{item.year ? `(${item.year})` : ''}</span> Watch Free | watch online
               </h1>
               {isPlaying && (
                 <span className="flex items-center gap-2 bg-brand-600 text-white text-[10px] sm:text-xs font-bold px-3 py-1.5 rounded outline outline-1 outline-brand-500/50 shadow-[0_0_15px_rgba(220,38,38,0.4)] uppercase tracking-wider">
@@ -959,7 +962,7 @@ export default function WatchView({ item: propItem, onBack, onSelectMedia }: Wat
               />
               <div className="mt-6 pt-4 border-t border-[#1a2700] text-[13px] text-gray-400">
                 <p>
-                  ඔබට දැන් මෙම නිර්මාණය <strong>සිංහල උපසිරැසි</strong> සමඟින් රසවිඳිය හැක. MovieVibe වෙතින් <strong>සිංහල උපසිරැසි සමඟ චිත්‍රපට</strong> සහ TV Series ඉතා පහසුවෙන් නැරඹිය හැකියි. <strong>අලුත්ම චිත්‍රපට සිංහල උපසිරැසි සහිතව</strong> ගෙන එන අපගේ වෙබ් අඩවියෙන් දැන්ම <strong>නොමිලේ චිත්‍රපට නරඹන්න</strong>.
+                  You can now enjoy this title with <strong>HD quality</strong>. MovieZen makes it easy to watch movies and TV Series. Enjoy our constantly updated collection of <strong>free movies</strong> right now.
                 </p>
               </div>
             </div>
@@ -1122,8 +1125,8 @@ export default function WatchView({ item: propItem, onBack, onSelectMedia }: Wat
                         onSelectMedia(relatedItem);
                       } else {
                         let relatedSlug = relatedItem.slug || relatedItem.id;
-                        if (relatedSlug.endsWith('-sinhala-sub')) {
-                          relatedSlug = relatedSlug.replace(/-sinhala-sub$/, '-sinhala-subtitles');
+                        if (relatedSlug.endsWith('-watch-free')) {
+                          relatedSlug = relatedSlug.replace(/-watch-free$/, '-watch-online');
                         }
                         navigate.push(`/${relatedItem.type === 'MOVIE' ? 'movies' : 'tv'}/${relatedSlug}`);
                       }

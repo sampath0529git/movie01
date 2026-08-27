@@ -6,7 +6,7 @@ export default function DisclaimerView() {
     <>
       <SEO 
         title="Disclaimer" 
-        description="Disclaimer for MovieVibe" 
+        description="Disclaimer for MovieZen" 
         type="website" 
       />
       <div className="max-w-4xl mx-auto px-6 py-16 w-full text-gray-300">
@@ -56,7 +56,7 @@ export default function DisclaimerView() {
             us at:
           </p>
           <p className="font-mono bg-[#0d1400] p-3 rounded mt-2 border border-[#1a2700] inline-block">
-            Email: contact@movievibe.com
+            Email: contact@moviezen.com
           </p>
         </div>
       </div>

@@ -36,7 +36,7 @@ export default function HeroSection({ movies, onSelectMedia }: HeroSectionProps)
         >
           <img
             src={movie.bannerUrl || movie.imageUrl}
-            alt={`${movie.title} Sinhala sub`}
+            alt={`${movie.title} Watch Online`}
             className="w-full h-full object-cover"
             loading={index === 0 ? "eager" : "lazy"}
             fetchPriority={index === 0 ? "high" : "auto"}
@@ -48,12 +48,12 @@ export default function HeroSection({ movies, onSelectMedia }: HeroSectionProps)
       ))}
 
       {/* Content */}
-      <div className="absolute inset-0 flex flex-col justify-end pb-[120px] md:pb-[100px] px-6 md:px-12 lg:px-16 pointer-events-none">
+      <div className="absolute inset-0 flex flex-col justify-end pb-[100px] sm:pb-[120px] md:pb-[100px] px-4 sm:px-6 md:px-12 lg:px-16 pointer-events-none">
         <div className="max-w-2xl pointer-events-auto">
           <span className="inline-block px-3 py-1 bg-white/10 backdrop-blur-sm rounded-md text-xs font-bold text-gray-200 mb-4 border border-white/10 uppercase tracking-wider">
             {activeMovie.type === "TV" ? "TV Show" : "Movie"}
           </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-3 leading-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-3 leading-tight">
             {activeMovie.title}
           </h1>
           <p className="text-gray-300 text-sm md:text-base line-clamp-3 mb-4 max-w-xl leading-relaxed drop-shadow-md">

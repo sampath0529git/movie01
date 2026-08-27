@@ -27,7 +27,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   const handleSelectMedia = (item: any) => {
     let prefix = item.type.toLowerCase() === 'movie' ? 'movies' : 'tv';
     let slug = item.slug || item.id;
-    if (slug.endsWith('-sinhala-sub')) slug = slug.replace(/-sinhala-sub$/, '-sinhala-subtitles');
+    if (slug.endsWith('-watch-free')) slug = slug.replace(/-watch-free$/, '-watch-online');
     router.push(`/${prefix}/${slug}`);
   };
 
@@ -42,7 +42,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         isAdmin={isAdmin}
         user={user}
       />
-      <main className="flex-grow flex flex-col w-full pb-20 lg:pb-0 pt-20">
+      <main className={`flex-grow flex flex-col w-full pb-20 lg:pb-0 ${currentView === 'home' ? 'pt-0' : 'pt-[76px]'}`}>
         {children}
       </main>
       <Footer />

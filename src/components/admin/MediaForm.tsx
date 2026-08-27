@@ -94,7 +94,7 @@ async function callGeminiApi(prompt: string, schema: any) {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${currentKey}`,
             "HTTP-Referer": (typeof window !== 'undefined' ? window.location.origin : ''),
-            "X-Title": "MovieVibe"
+            "X-Title": "MovieZen"
           },
           body: JSON.stringify({
             model: targetModel,
@@ -226,6 +226,7 @@ export default function MediaForm({
     featured: false,
     trending: false,
     isUpcoming: false,
+    hasSinhalaSub: false,
     completedSeasonTag: "",
     status: "Published",
     seoTitle: "",
@@ -298,6 +299,7 @@ export default function MediaForm({
         featured: initialData.featured || false,
         trending: initialData.trending || false,
         isUpcoming: initialData.isUpcoming || false,
+        hasSinhalaSub: initialData.hasSinhalaSub || false,
         completedSeasonTag: initialData.completedSeasonTag || "",
         status: initialData.status || "Published",
         seoTitle: initialData.seoTitle || "",
@@ -493,7 +495,7 @@ export default function MediaForm({
     const toastId = toast.loading('Generating details with AI...');
     
     try {
-      const prompt = `Provide the details for the ${formData.type === "MOVIE" ? "movie" : "TV show"} titled "${formData.title}". Return only a JSON object matching the requested schema. Do not return markdown formatted code block. Just return pure JSON string. Please provide the 'description' in the Sinhala language.`;
+      const prompt = `Provide the details for the ${formData.type === "MOVIE" ? "movie" : "TV show"} titled "${formData.title}". Return only a JSON object matching the requested schema. Do not return markdown formatted code block. Just return pure JSON string. Please provide the 'description' in the English language.`;
       
       const textResult = await callGeminiApi(prompt, {
         type: "OBJECT",
@@ -505,7 +507,7 @@ export default function MediaForm({
           network: { type: "STRING", description: "Original Network (e.g. 'Netflix', 'HBO', 'AMC'). Optional." },
           duration: { type: "STRING", description: "Duration (e.g. '2h 15m' or '45m/ep')" },
           castString: { type: "STRING", description: "Comma-separated list of 3 to 4 main cast members" },
-          description: { type: "STRING", description: "A compelling, highly engaging, and SEO-optimized summary of the plot in the Sinhala language." }
+          description: { type: "STRING", description: "A compelling, highly engaging, and SEO-optimized summary of the plot in the English language." }
         }
       });
       
@@ -551,11 +553,11 @@ export default function MediaForm({
 
     try {
       const prompt = `You are a professional film/TV show SEO content writer. 
-Improve and SEO-optimize the following description in Sinhala. Do not artificially shorten it; keep all important details while making it highly engaging, professionally written, and structured for better readability.
+Improve and SEO-optimize the following description in English. Do not artificially shorten it; keep all important details while making it highly engaging, professionally written, and structured for better readability.
 Important instructions:
 1. Make the writing style compelling, fluent, and attractive to Sri Lankan audiences.
-2. Must naturally and effectively incorporate the following target keyword(s) for SEO without keyword stuffing: "${targetKeywords || 'watch online free, sinhala subtitles'}". 
-3. The response should be primarily in Sinhala, keeping English text mostly for names or technical keywords.
+2. Must naturally and effectively incorporate the following target keyword(s) for SEO without keyword stuffing: "${targetKeywords || 'watch online free, watch onlines'}". 
+3. The response should be primarily in English, keeping English text mostly for names or technical keywords.
 4. Output ONLY a raw JSON object containing a property 'optimizedDescription' with the resulting text string. No markdown code blocks, no extra text.
 
 Raw Description:
@@ -564,7 +566,7 @@ ${rawDescription}`;
       const textResult = await callGeminiApi(prompt, {
         type: "OBJECT",
         properties: {
-          optimizedDescription: { type: "STRING", description: "The highly engaging, SEO-optimized description text in Sinhala" }
+          optimizedDescription: { type: "STRING", description: "The highly engaging, SEO-optimized description text in English" }
         }
       });
       
@@ -698,7 +700,7 @@ ${rawDescription}`;
       const baseName = formData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
       const isKorean = formData.genres?.includes('Korean');
       
-      let slug = `${baseName}-${formData.year || ''}-sinhala-subtitles`.replace(/^-|-$/g, '').replace(/-+/g, '-');
+      let slug = `${baseName}-${formData.year || ''}-watch-online`.replace(/^-|-$/g, '').replace(/-+/g, '-');
 
       const itemToSave = Object.fromEntries(
         Object.entries(formData).filter(
@@ -815,6 +817,16 @@ ${rawDescription}`;
                 className="w-5 h-5 accent-yellow-500 rounded bg-white/10 border-white/20"
               />
               <span className="text-sm font-bold text-white">Upcoming</span>
+            </label>
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                name="hasSinhalaSub"
+                checked={formData.hasSinhalaSub}
+                onChange={handleChange}
+                className="w-5 h-5 accent-brand-500 rounded bg-white/10 border-white/20"
+              />
+              <span className="text-sm font-bold text-white">Sinhala Sub</span>
             </label>
             <div className="h-6 w-px bg-white/10"></div>
             <label className="flex items-center gap-3">
@@ -1028,26 +1040,26 @@ ${rawDescription}`;
                     >
                       <option value="">{idx === 0 ? "Select Primary Genre..." : "Select Genre..."}</option>
                       {[
-                        { id: "Action", name: "ක්‍රියාදාම (Action)" },
-                        { id: "Adventure", name: "වීර චාරිකා (Adventure)" },
-                        { id: "Animation", name: "ඇනිමේෂන් (Animation)" },
-                        { id: "Comedy", name: "හාස්‍යජනක (Comedy)" },
-                        { id: "Crime", name: "අපරාධ (Crime)" },
-                        { id: "Documentary", name: "වාර්තාමය (Documentary)" },
-                        { id: "Drama", name: "නාට්‍යමය (Drama)" },
-                        { id: "Family", name: "පවුලේ (Family)" },
-                        { id: "Fantasy", name: "මනස්කල්පිත (Fantasy)" },
-                        { id: "Ghost", name: "හොල්මන් (Ghost)" },
-                        { id: "History", name: "ඉතිහාස (History)" },
-                        { id: "Horror", name: "භයානක (Horror)" },
-                        { id: "Music", name: "සංගීත (Music)" },
-                        { id: "Mystery", name: "අභිරහස් (Mystery)" },
-                        { id: "Romance", name: "ආදර කතා (Romance)" },
-                        { id: "Sci-Fi", name: "විද්‍යා ප්‍රබන්ධ (Sci-Fi)" },
-                        { id: "Sports", name: "ක්‍රීඩා (Sports)" },
-                        { id: "Thriller", name: "ත්‍රාසජනක (Thriller)" },
-                        { id: "War", name: "යුධමය (War)" },
-                        { id: "Western", name: "බටහිර (Western)" }
+                        { id: "Action", name: "Action" },
+                        { id: "Adventure", name: "Adventure" },
+                        { id: "Animation", name: "Animation" },
+                        { id: "Comedy", name: "Comedy" },
+                        { id: "Crime", name: "Crime" },
+                        { id: "Documentary", name: "Documentary" },
+                        { id: "Drama", name: "Drama" },
+                        { id: "Family", name: "Family" },
+                        { id: "Fantasy", name: "Fantasy" },
+                        { id: "Ghost", name: "Ghost" },
+                        { id: "History", name: "History" },
+                        { id: "Horror", name: "Horror" },
+                        { id: "Music", name: "Music" },
+                        { id: "Mystery", name: "Mystery" },
+                        { id: "Romance", name: "Romance" },
+                        { id: "Sci-Fi", name: "Sci-Fi" },
+                        { id: "Sports", name: "Sports" },
+                        { id: "Thriller", name: "Thriller" },
+                        { id: "War", name: "War" },
+                        { id: "Western", name: "Western" }
                       ].map((g) => (
                         <option key={g.id} value={g.id}>
                           {g.name}
@@ -1101,7 +1113,7 @@ ${rawDescription}`;
                     "Spanish",
                     "French",
                     "German",
-                    "Sinhala",
+                    "English",
                     "Other",
                   ].map((l) => (
                     <option key={l} value={l}>
@@ -1310,7 +1322,7 @@ ${rawDescription}`;
                     value={targetKeywords}
                     onChange={(e) => setTargetKeywords(e.target.value)}
                     className={`${inputClass} text-sm`}
-                    placeholder="e.g. watch online free, sinhala subtitle"
+                    placeholder="e.g. watch online free, watch online"
                   />
                 </div>
                 <button

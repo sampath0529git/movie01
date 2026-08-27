@@ -1,10 +1,7 @@
-import './globals.css';
-import { Metadata } from 'next';
-import { I18nProvider } from '@/components/I18nProvider';
+const fs = require('fs');
+let code = fs.readFileSync('app/layout.tsx', 'utf8');
 
-export const dynamic = 'force-dynamic';
-
-export const metadata: Metadata = {
+const metadataStr = `export const metadata: Metadata = {
   title: 'MovieZen',
   description: 'Watch free movies and TV shows online',
   icons: {
@@ -21,13 +18,11 @@ export const metadata: Metadata = {
     ]
   },
   manifest: '/manifest.json'
-};
+};`;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      
-            <head>
+code = code.replace(/export const metadata: Metadata = {[\s\S]*?};/, metadataStr);
+
+const headReplacement = `      <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
@@ -36,12 +31,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon-512x512.png" type="image/png" sizes="512x512" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" type="image/png" />
         <link rel="manifest" href="/manifest.json" />
-      </head>
-      <body className="bg-black text-white min-h-screen flex flex-col font-sans selection:bg-brand-700/50">
-        <I18nProvider>
-          {children}
-        </I18nProvider>
-      </body>
-    </html>
-  );
-}
+      </head>`;
+
+code = code.replace(/<head>[\s\S]*?<\/head>/, headReplacement);
+
+fs.writeFileSync('app/layout.tsx', code);

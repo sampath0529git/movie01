@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e" />
+      <stop offset="50%" stop-color="#1ee417" />
+      <stop offset="100%" stop-color="#058f00" />
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1500" />
+      <stop offset="100%" stop-color="#050800" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" stroke="#1a2700" stroke-width="16" />
+  <!-- Film reel / Play Zen icon -->
+  <g filter="url(#glow)">
+    <circle cx="256" cy="256" r="160" fill="none" stroke="url(#brandGrad)" stroke-width="24" stroke-dasharray="80 30" />
+    <polygon points="220,176 340,256 220,336" fill="url(#brandGrad)" rx="12" />
+    <circle cx="256" cy="116" r="14" fill="#1ee417" />
+    <circle cx="256" cy="396" r="14" fill="#1ee417" />
+    <circle cx="116" cy="256" r="14" fill="#1ee417" />
+    <circle cx="396" cy="256" r="14" fill="#1ee417" />
+  </g>
+</svg>

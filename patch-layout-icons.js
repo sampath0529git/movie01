@@ -1,10 +1,7 @@
-import './globals.css';
-import { Metadata } from 'next';
-import { I18nProvider } from '@/components/I18nProvider';
+const fs = require('fs');
+let code = fs.readFileSync('app/layout.tsx', 'utf8');
 
-export const dynamic = 'force-dynamic';
-
-export const metadata: Metadata = {
+const metadataStr = `export const metadata: Metadata = {
   title: 'MovieZen',
   description: 'Watch free movies and TV shows online',
   icons: {
@@ -20,16 +17,8 @@ export const metadata: Metadata = {
     ]
   },
   manifest: '/manifest.json'
-};
+};`;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body className="bg-black text-white min-h-screen flex flex-col font-sans selection:bg-brand-700/50">
-        <I18nProvider>
-          {children}
-        </I18nProvider>
-      </body>
-    </html>
-  );
-}
+code = code.replace(/export const metadata: Metadata = {[\s\S]*?};/, metadataStr);
+
+fs.writeFileSync('app/layout.tsx', code);

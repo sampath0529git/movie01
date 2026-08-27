@@ -27,6 +27,7 @@ export default function AdminView() {
   const [addingType, setAddingType] = useState<'MOVIE' | 'TV'>('MOVIE');
 
   const { user, loading: authLoading, isAdmin, handleGoogleSignIn, isGoogleLoading, logout } = useAuth();
+  const { data: media, loading, loadMore, hasMore } = useMediaData();
 
   if (authLoading) {
     return (
@@ -59,7 +60,6 @@ export default function AdminView() {
   }
 
   
-  const { data: media, loading, loadMore, hasMore } = useMediaData();
 
   if (loading) {
     return <div className="flex-grow flex items-center justify-center p-8 text-white font-bold text-xl">Loading Dashboard...</div>;

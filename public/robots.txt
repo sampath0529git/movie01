@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /api/
 
-Sitemap: https://movievibe.me/sitemap.xml
+Sitemap: https://moviezen.me/sitemap.xml

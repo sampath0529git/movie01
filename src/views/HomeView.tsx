@@ -327,10 +327,16 @@ export default function HomeView({ setCurrentView, onSelectMedia, customMedia, i
       {continueWatching.length > 0 && (
         <div className="w-full max-w-7xl mx-auto mt-12 mb-2 overflow-hidden">
           <div className="flex items-center mb-4 px-2">
-            <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2 text-white">
-              <Clock className="text-brand-500 w-6 h-6" />
-              Continue Watching
-            </h2>
+            
+            <div className="flex flex-col">
+              <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2 text-white">
+                <TrendingUp className="text-brand-500 w-6 h-6" />
+                {t("home.trending_now", "Trending Now")}
+              </h2>
+              <p className="text-xs text-gray-500 mt-1 max-w-md">
+                How trending works: Our algorithm ranks titles based on real-time global viewership and daily popularity scores.
+              </p>
+            </div>
           </div>
           <div className="relative w-full">
             <div className="flex gap-3 md:gap-4 px-2 pb-4 overflow-x-auto custom-scrollbar">
@@ -360,10 +366,16 @@ export default function HomeView({ setCurrentView, onSelectMedia, customMedia, i
       {isLoading ? (
         <div className="w-full max-w-7xl mx-auto mt-12 mb-8 overflow-hidden">
           <div className="flex items-center mb-4 px-2">
-            <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2 text-white">
-              <TrendingUp className="text-brand-500 w-6 h-6" />
-              {t("home.trending_now", "Trending Now")}
-            </h2>
+            
+            <div className="flex flex-col">
+              <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2 text-white">
+                <TrendingUp className="text-brand-500 w-6 h-6" />
+                {t("home.trending_now", "Trending Now")}
+              </h2>
+              <p className="text-xs text-gray-500 mt-1 max-w-md">
+                How trending works: Our algorithm ranks titles based on real-time global viewership and daily popularity scores.
+              </p>
+            </div>
           </div>
           <div className="relative w-full">
             <div className="flex gap-3 md:gap-4 px-2 pb-4 overflow-hidden">
@@ -378,10 +390,16 @@ export default function HomeView({ setCurrentView, onSelectMedia, customMedia, i
       ) : trendingMedia.length > 0 ? (
         <div className="w-full max-w-7xl mx-auto mt-12 mb-8 overflow-hidden pause-marquee">
           <div className="flex items-center mb-4 px-2">
-            <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2 text-white">
-              <TrendingUp className="text-brand-500 w-6 h-6" />
-              {t("home.trending_now", "Trending Now")}
-            </h2>
+            
+            <div className="flex flex-col">
+              <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2 text-white">
+                <TrendingUp className="text-brand-500 w-6 h-6" />
+                {t("home.trending_now", "Trending Now")}
+              </h2>
+              <p className="text-xs text-gray-500 mt-1 max-w-md">
+                How trending works: Our algorithm ranks titles based on real-time global viewership and daily popularity scores.
+              </p>
+            </div>
           </div>
           
           <div className="relative w-full">

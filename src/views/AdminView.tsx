@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import SectionHeader from '../components/SectionHeader';
-import { useMediaData, auth } from '../firebase';
+import { useMediaData, auth, useAuth } from '../firebase';
 import { MediaItem } from '../types';
 import { LayoutDashboard, Film, Tv, Users, LogOut, ShieldAlert, Settings, Layers } from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
@@ -25,6 +25,39 @@ export default function AdminView() {
   const [isAddingCollection, setIsAddingCollection] = useState(false);
   const [isAddingCast, setIsAddingCast] = useState(false);
   const [addingType, setAddingType] = useState<'MOVIE' | 'TV'>('MOVIE');
+
+  const { user, loading: authLoading, isAdmin, handleGoogleSignIn, isGoogleLoading, logout } = useAuth();
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#050800]">
+        <div className="w-8 h-8 rounded-full border-4 border-brand-500 border-t-transparent animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#050800] p-4 text-center">
+        <div className="max-w-md w-full bg-[#0a0f00] border border-[#1a2700] rounded-2xl p-8 flex flex-col items-center">
+          <ShieldAlert className="w-16 h-16 text-red-500 mb-6" />
+          <h1 className="text-2xl font-bold text-white mb-2">Access Restricted</h1>
+          <p className="text-gray-400 mb-8 leading-relaxed">
+            You need administrator privileges to access this area. Please sign in with an authorized account.
+          </p>
+          <button
+            onClick={handleGoogleSignIn}
+            disabled={isGoogleLoading}
+            className="w-full bg-white text-black font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-3 hover:bg-gray-200 transition-colors disabled:opacity-70"
+          >
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" className="w-5 h-5" alt="Google" />
+            {isGoogleLoading ? 'Signing in...' : 'Sign in with Google'}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   
   const { data: media, loading, loadMore, hasMore } = useMediaData();
 
@@ -157,6 +190,12 @@ export default function AdminView() {
             </button>
           ))}
         </nav>
+        <div className="mt-8">
+          <button onClick={logout} className="flex items-center gap-3 px-4 py-3 rounded-xl font-bold w-full text-red-500 hover:bg-red-500/10 transition-colors">
+            <LogOut className="w-5 h-5" />
+            Sign Out
+          </button>
+        </div>
       </aside>
 
       {/* Main Content Area */}

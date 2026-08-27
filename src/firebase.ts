@@ -160,25 +160,11 @@ export function useCollectionsData() {
   return { data: collections, loading, error };
 }
 
-export function useAuth() {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
 
-  // We mocked user as requested so admin side keeps working without full auth config
-  useEffect(() => {
-     setUser({ email: 'admin@moviezen.com', uid: 'admin' });
-     setLoading(false);
-  }, []);
-
-  const login = () => {};
-  const logout = () => {};
-  
-  return { user, loading, isAdmin: true, login, logout, isGoogleLoading: false, handleGoogleSignIn: () => {} };
-}
 
 
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+
 import { getFirestore, collection, doc, setDoc, getDocs, query, where, orderBy, limit, serverTimestamp } from 'firebase/firestore';
 import firebaseConfig from '../firebase-applet-config.json';
 
@@ -217,5 +203,45 @@ export async function getContinueWatching(userId: string) {
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 }
  
-export const auth = { signOut: async () => {} } as any; 
+ 
 export const storage = {} as any; 
+
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from 'firebase/auth';
+
+const ADMIN_EMAILS = ['admin@moviezen.com', 'moviesclip808@gmail.com'];
+
+export const auth = getAuth(app);
+
+export function useAuth() {
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleGoogleSignIn = async () => {
+    setIsGoogleLoading(true);
+    try {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      console.error("Error signing in with Google", error);
+    } finally {
+      setIsGoogleLoading(false);
+    }
+  };
+
+  const logout = async () => {
+    await signOut(auth);
+  };
+
+  const isAdmin = user && user.email && ADMIN_EMAILS.includes(user.email);
+
+  return { user, loading, isAdmin, login: handleGoogleSignIn, logout, isGoogleLoading, handleGoogleSignIn };
+}

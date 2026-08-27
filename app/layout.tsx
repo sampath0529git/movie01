@@ -7,24 +7,21 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'MovieZen',
   description: 'Watch free movies and TV shows online',
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
-      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
-      { url: '/favicon-192x192.png', type: 'image/png', sizes: '192x192' },
-      { url: '/favicon-512x512.png', type: 'image/png', sizes: '512x512' }
-    ],
-    apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
-    ]
-  },
-  manifest: '/manifest.json'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      
+      <head>
+        <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+        <link rel="icon" href="/favicon-16x16.png?v=2" type="image/png" sizes="16x16" />
+        <link rel="icon" href="/favicon-32x32.png?v=2" type="image/png" sizes="32x32" />
+        <link rel="icon" href="/favicon-192x192.png?v=2" type="image/png" sizes="192x192" />
+        <link rel="icon" href="/favicon-512x512.png?v=2" type="image/png" sizes="512x512" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" sizes="180x180" type="image/png" />
+        <link rel="manifest" href="/manifest.json?v=2" />
+      </head>
       <body className="bg-black text-white min-h-screen flex flex-col font-sans selection:bg-brand-700/50">
         <I18nProvider>
           {children}
